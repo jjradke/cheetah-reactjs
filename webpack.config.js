@@ -8,20 +8,14 @@ var node_dir = __dirname + '/node_modules';
 var lib_dir = __dirname + '/lib';
 
 var config = {
-  addVendor: function (name, path) {
-    this.resolve.alias[name] = path;
-    this.module.noParse.push(new RegExp(path));
-  },
   resolve: {
     modulesDirectories: ['node_modules', 'lib'],
     alias: {},
     extensions: ['', '.js', '.jsx']
   },
-  entry: {
-    app: './components/main.js'
-  },
+  entry: './components/main.js',
   output: {
-    path: './', // This is where images AND js will go
+    path: './build', // This is where images AND js will go
     filename: 'cheetah-react.js' //this is the default name, so you can skip it
   },
   module: {
