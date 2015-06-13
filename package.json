@@ -2,6 +2,7 @@
   "name": "cheetah-reactjs",
   "version": "0.1.0",
   "description": "",
+  "main": "lib/cheetah-reactjs.js",
   "scripts": {
     "deploy": "webpack -p",
     "build": "webpack"
