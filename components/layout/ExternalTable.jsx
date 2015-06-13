@@ -3,7 +3,7 @@ import Griddle from 'griddle-react';
 import _ from 'underscore';
 import FormatterFactory from '../format/FormatterFactory';
 
-export default class ExternalTable extends React.Component {
+class ExternalTable extends React.Component {
 
     constructor(props) {
         super(props);
@@ -196,3 +196,5 @@ export default class ExternalTable extends React.Component {
     }
 
 }
+
+module.exports = ExternalTable;

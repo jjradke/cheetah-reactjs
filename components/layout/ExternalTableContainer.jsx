@@ -4,7 +4,7 @@ import React from 'react';
 import DataStore from './../rest/DataStore';
 import ExternalTable from './ExternalTable';
 
-export default class ExternalTableContainer extends React.Component {
+class ExternalTableContainer extends React.Component {
 
     constructor(props) {
         super(props);
@@ -43,3 +43,5 @@ export default class ExternalTableContainer extends React.Component {
     }
 
 }
+
+module.exports = ExternalTableContainer;
