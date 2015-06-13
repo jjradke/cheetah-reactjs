@@ -2,7 +2,7 @@
   "name": "cheetah-reactjs",
   "version": "0.1.0",
   "description": "",
-  "main": "cheetah-react.js",
+  "main": "components/main.js",
   "scripts": {
     "deploy": "webpack -p",
     "build": "webpack"
