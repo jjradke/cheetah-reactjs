@@ -1,188 +1,229 @@
 'use strict';
 
-import RestService from './RestService';
-import AuthManager from '../security/AuthManager';
-import _ from 'underscore';
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+var _RestService = require('./RestService');
+
+var _RestService2 = _interopRequireDefault(_RestService);
+
+var _securityAuthManager = require('../security/AuthManager');
+
+var _securityAuthManager2 = _interopRequireDefault(_securityAuthManager);
+
+var _underscore = require('underscore');
+
+var _underscore2 = _interopRequireDefault(_underscore);
+
+var DataStoreApi = (function () {
     function DataStoreApi() {
-        this.map = { };
-        this.indexMap = { };
-        this.totalMap = { };
+        _classCallCheck(this, DataStoreApi);
+
+        this.map = {};
+        this.indexMap = {};
+        this.totalMap = {};
     }
 
-    Object.defineProperty(DataStoreApi.prototype,"add",{writable:true,configurable:true,value:function(key, data) {
-        this.map[key] = data;
-    }});
+    _createClass(DataStoreApi, [{
+        key: 'add',
+        value: function add(key, data) {
+            this.map[key] = data;
+        }
+    }, {
+        key: 'total',
+        value: function total(key) {
+            return this.totalMap[key];
+        }
+    }, {
+        key: 'size',
+        value: function size(key) {
+            return this.map[key] == null ? 0 : this.map[key].length;
+        }
+    }, {
+        key: 'get',
+        value: function get(key, params, isSearch) {
+            var _this = this;
 
-    Object.defineProperty(DataStoreApi.prototype,"total",{writable:true,configurable:true,value:function(key) {
-        return this.totalMap[key];
-    }});
-
-    Object.defineProperty(DataStoreApi.prototype,"size",{writable:true,configurable:true,value:function(key) {
-        return this.map[key] == null? 0 : this.map[key].length;
-    }});
-
-    Object.defineProperty(DataStoreApi.prototype,"get",{writable:true,configurable:true,value:function(key, params, isSearch) {
-        return Rx.Observable.create(function(observer)  {
-            if (this.map[key] != null && !isSearch) {
-                observer.onNext(this.map[key]);
-                observer.onCompleted();
-            } else {
-               RestService.get(key, params).subscribe(function(result)  {
-                   if (result.total && result.total > 0) {
-                       this.totalMap[key] = result.total;
-                   }
-                    this.add(key, result.data);
-
-                    observer.onNext(result.data);
+            return Rx.Observable.create(function (observer) {
+                if (_this.map[key] != null && !isSearch) {
+                    observer.onNext(_this.map[key]);
                     observer.onCompleted();
-                }.bind(this), function(errorResult)  {
-                   if (errorResult.status != 500) {
-                       AuthManager.logout(true).subscribe(function(response)  {
-                           observer.onError(errorResult);
-                       });
-                   }
-               });
-            }
-        }.bind(this));
-
-    }});
-
-    Object.defineProperty(DataStoreApi.prototype,"getByOffset",{writable:true,configurable:true,value:function(key, params) {
-        console.log(params);
-        var offset = params.$DataStoreApi_offset,
-            size = params.$DataStoreApi_size;
-        return Rx.Observable.create(function(observer)  {
-            if (this.map[key] != null && this.map[key].length >= offset && this.map[key][offset] != null) {
-                observer.onNext(this.map[key].filter(function(item, index)  {return index >= offset && index < offset+size;} ));
-                observer.onCompleted();
-            } else {
-                RestService.get(key, params).subscribe(function(result)  {
-                    if (result.total && result.total > 0) {
-                        this.totalMap[key] = result.total;
-                    }
-                    if (this.map[key] == null) {
-                        this.map[key] = [];
-                    }
-
-                    if (this.map[key].length == offset) {
-                        result.data.forEach(function(item)  {
-                            this.map[key].push(item);
-                        }.bind(this));
-                    } else if (this.map[key].length < offset) {
-                        while (this.map[key].length < offset) {
-                            this.map[key].push(null);
+                } else {
+                    _RestService2['default'].get(key, params).subscribe(function (result) {
+                        if (result.total && result.total > 0) {
+                            _this.totalMap[key] = result.total;
                         }
+                        _this.add(key, result.data);
 
-                        result.data.forEach(function(item)  {
-                            this.map[key].push(item);
-                        }.bind(this))
-                    } else {
-                        result.data.forEach(function(item, index)  {
-                            index = offset+index;
-                            if (index == this.map[key].length) {
-                                this.map[key].push(item);
-                            } else if (index < this.map[key].length) {
-                                this.map[key][index] = item;
-                            }
-                        }.bind(this));
-                    }
-                    observer.onNext(result.data);
-                    observer.onCompleted();
-                }.bind(this), function(errorResult)  {
-                    if (errorResult.status != 500) {
-                        AuthManager.logout(true).subscribe(function(response)  {
-                            observer.onError(errorResult);
-                        });
-                    }
-                });
-            }
-        }.bind(this));
-
-    }});
-
-    Object.defineProperty(DataStoreApi.prototype,"getById",{writable:true,configurable:true,value:function(key, id) {
-        return Rx.Observable.create(function(observer)  {
-            var result = this.map[key] != null ? this.map[key].filter(function(item)  {
-                if (typeof id === 'string' || typeof id === 'number') {
-                    return item.Id == id;
-                } else if (typeof id === 'object') {
-                    return item[id.Key] == id.Value;
+                        observer.onNext(result.data);
+                        observer.onCompleted();
+                    }, function (errorResult) {
+                        if (errorResult.status != 500) {
+                            _securityAuthManager2['default'].logout(true).subscribe(function (response) {
+                                observer.onError(errorResult);
+                            });
+                        }
+                    });
                 }
-                return null;
-            }) : [];
-            if (result.length == 0) {
-                RestService.find(key, id).subscribe(function(result)  {
-                    observer.onNext(result);
+            });
+        }
+    }, {
+        key: 'getByOffset',
+        value: function getByOffset(key, params) {
+            var _this2 = this;
+
+            console.log(params);
+            var offset = params._offset,
+                size = params._size;
+            return Rx.Observable.create(function (observer) {
+                if (_this2.map[key] != null && _this2.map[key].length >= offset && _this2.map[key][offset] != null) {
+                    observer.onNext(_this2.map[key].filter(function (item, index) {
+                        return index >= offset && index < offset + size;
+                    }));
                     observer.onCompleted();
-                }, function(errorResult)  {
-                    observer.onError(errorResult);
-                });
-            } else {
-                observer.onNext(result[0]);
-                observer.onCompleted();
-            }
-        }.bind(this));
-    }});
-
-    Object.defineProperty(DataStoreApi.prototype,"getByIndex",{writable:true,configurable:true,value:function(key, id) {
-        var index = this.indexMap[key];
-
-        return Rx.Observable.create(function(observer)  {
-            if (this.map[key] != null && this.map[key].length > index) {
-                console.log('retrieved from cache!');
-                observer.onNext(this.map[key][this.indexMap[key]]);
-                observer.onCompleted();
-            } else {
-                this.getById(key, id).subscribe(function(data)  {
-                    if (!(data instanceof Array)) data = [data];
-                    this.add(key, data);
-
-                    for (var index = 0; index < data.length; index++) {
-                        var row = data[index];
-                        if (row.Id == id) {
-                            this.indexMap[key] = index;
-                            break;
+                } else {
+                    _RestService2['default'].get(key, params).subscribe(function (result) {
+                        if (result.total && result.total > 0) {
+                            _this2.totalMap[key] = result.total;
                         }
+                        if (_this2.map[key] == null) {
+                            _this2.map[key] = [];
+                        }
+
+                        if (_this2.map[key].length == offset) {
+                            result.data.forEach(function (item) {
+                                _this2.map[key].push(item);
+                            });
+                        } else if (_this2.map[key].length < offset) {
+                            while (_this2.map[key].length < offset) {
+                                _this2.map[key].push(null);
+                            }
+
+                            result.data.forEach(function (item) {
+                                _this2.map[key].push(item);
+                            });
+                        } else {
+                            result.data.forEach(function (item, index) {
+                                index = offset + index;
+                                if (index == _this2.map[key].length) {
+                                    _this2.map[key].push(item);
+                                } else if (index < _this2.map[key].length) {
+                                    _this2.map[key][index] = item;
+                                }
+                            });
+                        }
+                        observer.onNext(result.data);
+                        observer.onCompleted();
+                    }, function (errorResult) {
+                        if (errorResult.status != 500) {
+                            _securityAuthManager2['default'].logout(true).subscribe(function (response) {
+                                observer.onError(errorResult);
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    }, {
+        key: 'getById',
+        value: function getById(key, id) {
+            var _this3 = this;
+
+            return Rx.Observable.create(function (observer) {
+                var result = _this3.map[key] != null ? _this3.map[key].filter(function (item) {
+                    if (typeof id === 'string' || typeof id === 'number') {
+                        return item.Id == id;
+                    } else if (typeof id === 'object') {
+                        return item[id.Key] == id.Value;
                     }
-
-                    observer.onNext(this.map[key][this.indexMap[key]]);
+                    return null;
+                }) : [];
+                if (result.length == 0) {
+                    _RestService2['default'].find(key, id).subscribe(function (result) {
+                        observer.onNext(result);
+                        observer.onCompleted();
+                    }, function (errorResult) {
+                        observer.onError(errorResult);
+                    });
+                } else {
+                    observer.onNext(result[0]);
                     observer.onCompleted();
-                }.bind(this));
+                }
+            });
+        }
+    }, {
+        key: 'getByIndex',
+        value: function getByIndex(key, id) {
+            var _this4 = this;
+
+            var index = this.indexMap[key];
+
+            return Rx.Observable.create(function (observer) {
+                if (_this4.map[key] != null && _this4.map[key].length > index) {
+                    console.log('retrieved from cache!');
+                    observer.onNext(_this4.map[key][_this4.indexMap[key]]);
+                    observer.onCompleted();
+                } else {
+                    _this4.getById(key, id).subscribe(function (data) {
+                        if (!(data instanceof Array)) data = [data];
+                        _this4.add(key, data);
+
+                        for (var index = 0; index < data.length; index++) {
+                            var row = data[index];
+                            if (row.Id == id) {
+                                _this4.indexMap[key] = index;
+                                break;
+                            }
+                        }
+
+                        observer.onNext(_this4.map[key][_this4.indexMap[key]]);
+                        observer.onCompleted();
+                    });
+                }
+            });
+        }
+    }, {
+        key: 'addIndex',
+        value: function addIndex(key, index) {
+            this.indexMap[key] = index;
+        }
+    }, {
+        key: 'getIndex',
+        value: function getIndex(key) {
+            return this.indexMap[key];
+        }
+    }, {
+        key: 'previous',
+        value: function previous(key) {
+            if (this.hasPrevious(key)) {
+                this.indexMap[key] = this.indexMap[key] - 1;
             }
-        }.bind(this));
-    }});
-
-    Object.defineProperty(DataStoreApi.prototype,"addIndex",{writable:true,configurable:true,value:function(key, index) {
-        this.indexMap[key] = index;
-    }});
-
-    Object.defineProperty(DataStoreApi.prototype,"getIndex",{writable:true,configurable:true,value:function(key) {
-        return this.indexMap[key];
-    }});
-
-    Object.defineProperty(DataStoreApi.prototype,"previous",{writable:true,configurable:true,value:function(key) {
-        if (this.hasPrevious(key)) {
-            this.indexMap[key] = this.indexMap[key]-1;
         }
-    }});
-
-    Object.defineProperty(DataStoreApi.prototype,"next",{writable:true,configurable:true,value:function(key) {
-        if (this.hasNext(key)) {
-            this.indexMap[key] = this.indexMap[key]+1;
+    }, {
+        key: 'next',
+        value: function next(key) {
+            if (this.hasNext(key)) {
+                this.indexMap[key] = this.indexMap[key] + 1;
+            }
         }
-    }});
+    }, {
+        key: 'hasPrevious',
+        value: function hasPrevious(key) {
+            return this.indexMap[key] != null && this.indexMap[key] > 0;
+        }
+    }, {
+        key: 'hasNext',
+        value: function hasNext(key) {
+            var currentIndex = this.indexMap[key];
+            return currentIndex != null && currentIndex < this.map[key].length - 1;
+        }
+    }]);
 
-    Object.defineProperty(DataStoreApi.prototype,"hasPrevious",{writable:true,configurable:true,value:function(key) {
-        return this.indexMap[key] != null && this.indexMap[key] > 0;
-    }});
-
-    Object.defineProperty(DataStoreApi.prototype,"hasNext",{writable:true,configurable:true,value:function(key) {
-        var currentIndex = this.indexMap[key];
-        return currentIndex != null && currentIndex < this.map[key].length-1;
-    }});
-
+    return DataStoreApi;
+})();
 
 var DataStore = new DataStoreApi();
 

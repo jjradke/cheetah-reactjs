@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
     ConfirmEmailPage: require('./auth/ConfirmEmailPage'),
     ForgotPasswordPage: require('./auth/ForgotPasswordPage'),

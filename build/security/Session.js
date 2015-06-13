@@ -1,9 +1,19 @@
 'use strict';
 
-import RestService from '../rest/RestService';
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+var _restRestService = require('../rest/RestService');
+
+var _restRestService2 = _interopRequireDefault(_restRestService);
+
+var SessionApi = (function () {
     function SessionApi() {
+        _classCallCheck(this, SessionApi);
+
         this.id = null;
         this.token = null;
         this.roles = [];
@@ -11,29 +21,36 @@ import RestService from '../rest/RestService';
         this.landingPage = null;
     }
 
-    Object.defineProperty(SessionApi.prototype,"create",{writable:true,configurable:true,value:function(session) {
-        for (var key in session) {
-            this[key] = session[key];
+    _createClass(SessionApi, [{
+        key: 'create',
+        value: function create(session) {
+            for (var key in session) {
+                this[key] = session[key];
+            }
         }
-    }});
+    }, {
+        key: 'isAuthenticated',
+        value: function isAuthenticated() {
+            return this.id != null && this.token != null && this.permissions.length > 0;
+        }
+    }, {
+        key: 'isAuthorized',
+        value: function isAuthorized(permission) {
+            return this.permissions.indexOf(permission) > -1;
+        }
+    }, {
+        key: 'destroy',
+        value: function destroy() {
+            this.id = null;
+            this.token = null;
+            this.roles = [];
+            this.permissions = [];
+            this.landingPage = null;
+        }
+    }]);
 
-    Object.defineProperty(SessionApi.prototype,"isAuthenticated",{writable:true,configurable:true,value:function() {
-        return this.id != null && this.token != null && this.permissions.length > 0;
-    }});
-
-    Object.defineProperty(SessionApi.prototype,"isAuthorized",{writable:true,configurable:true,value:function(permission) {
-        return this.permissions.indexOf(permission) > -1;
-    }});
-
-    Object.defineProperty(SessionApi.prototype,"destroy",{writable:true,configurable:true,value:function() {
-        this.id = null;
-        this.token = null;
-        this.roles = [];
-        this.permissions = [];
-        this.landingPage = null;
-    }});
-
-
+    return SessionApi;
+})();
 
 var Session = new SessionApi();
 

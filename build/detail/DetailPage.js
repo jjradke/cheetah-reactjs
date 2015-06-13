@@ -1,51 +1,81 @@
 'use strict';
 
-import React from 'react';
-import RestService from '../rest/RestService';
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var ____Class0=React.Component;for(var ____Class0____Key in ____Class0){if(____Class0.hasOwnProperty(____Class0____Key)){DetailPage[____Class0____Key]=____Class0[____Class0____Key];}}var ____SuperProtoOf____Class0=____Class0===null?null:____Class0.prototype;DetailPage.prototype=Object.create(____SuperProtoOf____Class0);DetailPage.prototype.constructor=DetailPage;DetailPage.__superConstructor__=____Class0;
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _restRestService = require('../rest/RestService');
+
+var _restRestService2 = _interopRequireDefault(_restRestService);
+
+var DetailPage = (function (_React$Component) {
     function DetailPage(props) {
-        ____Class0.call(this,props);
-        this.state = {data: {item:{}}};
+        _classCallCheck(this, DetailPage);
+
+        _get(Object.getPrototypeOf(DetailPage.prototype), 'constructor', this).call(this, props);
+        this.state = { data: { item: {} } };
 
         this.handleUpdate = this.handleUpdate.bind(this);
     }
 
-    Object.defineProperty(DetailPage.prototype,"handleUpdate",{writable:true,configurable:true,value:function() {
-        for (var fieldName in this.refs) {
-            var fieldValue = this.refs[fieldName].getValue();
+    _inherits(DetailPage, _React$Component);
 
-            this.state.data.item[fieldName] = fieldValue;
+    _createClass(DetailPage, [{
+        key: 'handleUpdate',
+        value: function handleUpdate() {
+            for (var fieldName in this.refs) {
+                var fieldValue = this.refs[fieldName].getValue();
+
+                this.state.data.item[fieldName] = fieldValue;
+            }
+
+            return this.state.data.item;
         }
-
-        return this.state.data.item;
-    }});
-
-    Object.defineProperty(DetailPage.prototype,"componentDidMount",{writable:true,configurable:true,value:function() {
-        this.loadFromServer(this.props.id);
-    }});
-
-    Object.defineProperty(DetailPage.prototype,"componentWillReceiveProps",{writable:true,configurable:true,value:function(nextProps) {
-        this.loadFromServer(nextProps.id);
-
-        for (var fieldName in this.refs) {
-            var fieldValue = this.refs[fieldName];
-
-            fieldValue.reset();
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.loadFromServer(this.props.id);
         }
-    }});
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            this.loadFromServer(nextProps.id);
 
-    Object.defineProperty(DetailPage.prototype,"loadFromServer",{writable:true,configurable:true,value:function(id) {
-        RestService.find(this.props.resourceName, decodeURIComponent(id)).subscribe(function(data)  {
-            data = this.onDataLoad(data);
+            for (var fieldName in this.refs) {
+                var fieldValue = this.refs[fieldName];
 
-            this.setState({data: {item:data}});
-        }.bind(this))
-    }});
+                fieldValue.reset();
+            }
+        }
+    }, {
+        key: 'loadFromServer',
+        value: function loadFromServer(id) {
+            var _this = this;
 
-    Object.defineProperty(DetailPage.prototype,"onDataLoad",{writable:true,configurable:true,value:function(data) {
-        return data;
-    }});
+            _restRestService2['default'].find(this.props.resourceName, decodeURIComponent(id)).subscribe(function (data) {
+                data = _this.onDataLoad(data);
 
+                _this.setState({ data: { item: data } });
+            });
+        }
+    }, {
+        key: 'onDataLoad',
+        value: function onDataLoad(data) {
+            return data;
+        }
+    }]);
+
+    return DetailPage;
+})(_react2['default'].Component);
 
 module.exports = DetailPage;

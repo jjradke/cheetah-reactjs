@@ -1,175 +1,223 @@
 'use strict';
 
-import React from 'react';
-import Rx from 'Rx';
-import Session from './Session';
-import FacebookManager from './FacebookManager';
-import LinkedinManager from './LinkedinManager';
-import AuthService from './AuthService';
-import lscache from 'lscache';
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Rx = require('Rx');
+
+var _Rx2 = _interopRequireDefault(_Rx);
+
+var _Session = require('./Session');
+
+var _Session2 = _interopRequireDefault(_Session);
+
+var _FacebookManager = require('./FacebookManager');
+
+var _FacebookManager2 = _interopRequireDefault(_FacebookManager);
+
+var _LinkedinManager = require('./LinkedinManager');
+
+var _LinkedinManager2 = _interopRequireDefault(_LinkedinManager);
+
+var _AuthService = require('./AuthService');
+
+var _AuthService2 = _interopRequireDefault(_AuthService);
+
+var _lscache = require('lscache');
+
+var _lscache2 = _interopRequireDefault(_lscache);
+
+var AuthManagerApi = (function () {
     function AuthManagerApi() {
+        _classCallCheck(this, AuthManagerApi);
+
         this.login = this.login.bind(this);
         this.register = this.register.bind(this);
 
-        if (lscache.get('session') != null) {
-            this.createSession(lscache.get('session'));
+        if (_lscache2['default'].get('session') != null) {
+            this.createSession(_lscache2['default'].get('session'));
         }
     }
 
-    Object.defineProperty(AuthManagerApi.prototype,"getUserId",{writable:true,configurable:true,value:function() {
-        return Session.id;
-    }});
-
-    Object.defineProperty(AuthManagerApi.prototype,"register",{writable:true,configurable:true,value:function(userInformation) {
-        return Rx.Observable.create(function(observer)  {
-           AuthService.register(userInformation).subscribe(function(response)  {
-               observer.onNext(response);
-               observer.onCompleted();
-           }, function(errorResponse)  {
-               observer.onError(errorResponse);
-           });
-        });
-    }});
-
-    Object.defineProperty(AuthManagerApi.prototype,"confirm",{writable:true,configurable:true,value:function(data) {
-        return Rx.Observable.create(function(observer)  {
-            AuthService.confirm(data).subscribe(function(response)  {
-                observer.onNext(response);
-                observer.onCompleted();
-            }, function(errorResponse)  {
-                observer.onError(errorResponse);
-            });
-        });
-    }});
-
-    Object.defineProperty(AuthManagerApi.prototype,"login",{writable:true,configurable:true,value:function(credentials) {
-        if (!!credentials.provider) {
-           if (credentials.provider == 'facebook') {
-               return Rx.Observable.create(function(observer)  {
-                   FacebookManager.login().subscribe(function(facebookResponse)  {
-                       AuthService.externalLogin(facebookResponse).subscribe(function(apiResponse)  {
-                           console.log(apiResponse);
-                           this.createSession(apiResponse);
-                           observer.onNext(apiResponse);
-                           observer.onCompleted();
-                       }.bind(this));
-                   }.bind(this));
-               }.bind(this));
-           } else if (credentials.provider == 'linkedin') {
-               return Rx.Observable.create(function(observer)  {
-                   LinkedinManager.login().subscribe(function(linkedinResponse)  {
-                       AuthService.externalLogin(linkedinResponse).subscribe(function(apiResponse)  {
-                           this.createSession(apiResponse);
-                           observer.onNext(apiResponse);
-                           observer.onCompleted();
-                       }.bind(this));
-                   }.bind(this));
-               }.bind(this));
-           }
-        } else {
-            return Rx.Observable.create(function(observer)  {
-                return AuthService.login(credentials).subscribe(function(response)  {
-                    this.createSession(response);
+    _createClass(AuthManagerApi, [{
+        key: 'getUserId',
+        value: function getUserId() {
+            return _Session2['default'].id;
+        }
+    }, {
+        key: 'register',
+        value: function register(userInformation) {
+            return _Rx2['default'].Observable.create(function (observer) {
+                _AuthService2['default'].register(userInformation).subscribe(function (response) {
                     observer.onNext(response);
                     observer.onCompleted();
-                }.bind(this), function(errorResponse)  {
+                }, function (errorResponse) {
                     observer.onError(errorResponse);
                 });
-            }.bind(this));
+            });
         }
-    }});
-
-    Object.defineProperty(AuthManagerApi.prototype,"logout",{writable:true,configurable:true,value:function(clientOnly) {
-       return Rx.Observable.create(function(observer)  {
-           if (!clientOnly) {
-               AuthService.logout().subscribe(function(response)  {
-                   lscache.remove('session');
-                   this.clearHeaders();
-                   Session.destroy();
-                   observer.onNext(response);
-                   observer.onCompleted();
-               }.bind(this), function(errorResponse)  {
-                   if (errorResponse.status == 401) {
-                       lscache.remove('session');
-                       this.clearHeaders();
-                       Session.destroy();
-                       observer.onNext(null);
-                       observer.onCompleted();
-                   } else {
-                       observer.onError(errorResponse);
-                   }
-               }.bind(this));
-           } else {
-               lscache.remove('session');
-               this.clearHeaders();
-               Session.destroy();
-               observer.onNext(null);
-               observer.onCompleted();
-           }
-       }.bind(this));
-    }});
-
-    Object.defineProperty(AuthManagerApi.prototype,"forgot",{writable:true,configurable:true,value:function(requestData) {
-        return Rx.Observable.create(function(observer)  {
-            AuthService.forgot(requestData).subscribe(function(response)  {
-                observer.onNext(response);
-                observer.onCompleted(response);
-            }, function(errorResponse)  {
-                observer.onError(errorResponse);
+    }, {
+        key: 'confirm',
+        value: function confirm(data) {
+            return _Rx2['default'].Observable.create(function (observer) {
+                _AuthService2['default'].confirm(data).subscribe(function (response) {
+                    observer.onNext(response);
+                    observer.onCompleted();
+                }, function (errorResponse) {
+                    observer.onError(errorResponse);
+                });
             });
-        })
-    }});
+        }
+    }, {
+        key: 'login',
+        value: function login(credentials) {
+            var _this = this;
 
-    Object.defineProperty(AuthManagerApi.prototype,"reset",{writable:true,configurable:true,value:function(requestData) {
-        return Rx.Observable.create(function(observer)  {
-            AuthService.reset(requestData).subscribe(function(response)  {
-                observer.onNext(response);
-                observer.onCompleted(response);
-            }, function(errorResponse)  {
-                observer.onError(errorResponse);
-            });
-        })
-    }});
-
-    Object.defineProperty(AuthManagerApi.prototype,"isAuthenticated",{writable:true,configurable:true,value:function() {
-        return Session.isAuthenticated();
-    }});
-
-    Object.defineProperty(AuthManagerApi.prototype,"isAuthorized",{writable:true,configurable:true,value:function(permission) {
-        return Session.isAuthorized(permission);
-    }});
-
-    Object.defineProperty(AuthManagerApi.prototype,"createSession",{writable:true,configurable:true,value:function(authResponse) {
-        var session = {
-            token: authResponse.token||authResponse.id,
-            id: authResponse.userId||authResponse.id,
-            roles: authResponse.roles,
-            permissions: authResponse.permissions,
-            landingPage: authResponse.landingPage
-        };
-
-        lscache.set('session', session);
-        this.registerHeaders(session.token, session.id);
-        Session.create(session);
-    }});
-
-    Object.defineProperty(AuthManagerApi.prototype,"registerHeaders",{writable:true,configurable:true,value:function(token, id) {
-        $.ajaxSetup({
-            headers: {
-                'ecommerce-security-token': token,
-                'ecommerce-security-user': id
+            if (!!credentials.provider) {
+                if (credentials.provider == 'facebook') {
+                    return _Rx2['default'].Observable.create(function (observer) {
+                        _FacebookManager2['default'].login().subscribe(function (facebookResponse) {
+                            _AuthService2['default'].externalLogin(facebookResponse).subscribe(function (apiResponse) {
+                                console.log(apiResponse);
+                                _this.createSession(apiResponse);
+                                observer.onNext(apiResponse);
+                                observer.onCompleted();
+                            });
+                        });
+                    });
+                } else if (credentials.provider == 'linkedin') {
+                    return _Rx2['default'].Observable.create(function (observer) {
+                        _LinkedinManager2['default'].login().subscribe(function (linkedinResponse) {
+                            _AuthService2['default'].externalLogin(linkedinResponse).subscribe(function (apiResponse) {
+                                _this.createSession(apiResponse);
+                                observer.onNext(apiResponse);
+                                observer.onCompleted();
+                            });
+                        });
+                    });
+                }
+            } else {
+                return _Rx2['default'].Observable.create(function (observer) {
+                    return _AuthService2['default'].login(credentials).subscribe(function (response) {
+                        _this.createSession(response);
+                        observer.onNext(response);
+                        observer.onCompleted();
+                    }, function (errorResponse) {
+                        observer.onError(errorResponse);
+                    });
+                });
             }
-        });
-    }});
+        }
+    }, {
+        key: 'logout',
+        value: function logout(clientOnly) {
+            var _this2 = this;
 
-    Object.defineProperty(AuthManagerApi.prototype,"clearHeaders",{writable:true,configurable:true,value:function() {
-        $.ajaxSetup({
-            headers: { }
-        });
-    }});
+            return _Rx2['default'].Observable.create(function (observer) {
+                if (!clientOnly) {
+                    _AuthService2['default'].logout().subscribe(function (response) {
+                        _lscache2['default'].remove('session');
+                        _this2.clearHeaders();
+                        _Session2['default'].destroy();
+                        observer.onNext(response);
+                        observer.onCompleted();
+                    }, function (errorResponse) {
+                        if (errorResponse.status == 401) {
+                            _lscache2['default'].remove('session');
+                            _this2.clearHeaders();
+                            _Session2['default'].destroy();
+                            observer.onNext(null);
+                            observer.onCompleted();
+                        } else {
+                            observer.onError(errorResponse);
+                        }
+                    });
+                } else {
+                    _lscache2['default'].remove('session');
+                    _this2.clearHeaders();
+                    _Session2['default'].destroy();
+                    observer.onNext(null);
+                    observer.onCompleted();
+                }
+            });
+        }
+    }, {
+        key: 'forgot',
+        value: function forgot(requestData) {
+            return _Rx2['default'].Observable.create(function (observer) {
+                _AuthService2['default'].forgot(requestData).subscribe(function (response) {
+                    observer.onNext(response);
+                    observer.onCompleted(response);
+                }, function (errorResponse) {
+                    observer.onError(errorResponse);
+                });
+            });
+        }
+    }, {
+        key: 'reset',
+        value: function reset(requestData) {
+            return _Rx2['default'].Observable.create(function (observer) {
+                _AuthService2['default'].reset(requestData).subscribe(function (response) {
+                    observer.onNext(response);
+                    observer.onCompleted(response);
+                }, function (errorResponse) {
+                    observer.onError(errorResponse);
+                });
+            });
+        }
+    }, {
+        key: 'isAuthenticated',
+        value: function isAuthenticated() {
+            return _Session2['default'].isAuthenticated();
+        }
+    }, {
+        key: 'isAuthorized',
+        value: function isAuthorized(permission) {
+            return _Session2['default'].isAuthorized(permission);
+        }
+    }, {
+        key: 'createSession',
+        value: function createSession(authResponse) {
+            var session = {
+                token: authResponse.token || authResponse.id,
+                id: authResponse.userId || authResponse.id,
+                roles: authResponse.roles,
+                permissions: authResponse.permissions,
+                landingPage: authResponse.landingPage
+            };
 
+            _lscache2['default'].set('session', session);
+            this.registerHeaders(session.token, session.id);
+            _Session2['default'].create(session);
+        }
+    }, {
+        key: 'registerHeaders',
+        value: function registerHeaders(token, id) {
+            $.ajaxSetup({
+                headers: {
+                    'ecommerce-security-token': token,
+                    'ecommerce-security-user': id
+                }
+            });
+        }
+    }, {
+        key: 'clearHeaders',
+        value: function clearHeaders() {
+            $.ajaxSetup({
+                headers: {}
+            });
+        }
+    }]);
+
+    return AuthManagerApi;
+})();
 
 var AuthManager = new AuthManagerApi();
 
