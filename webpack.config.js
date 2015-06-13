@@ -9,7 +9,7 @@ var lib_dir = __dirname + '/lib';
 
 var config = {
   resolve: {
-    modulesDirectories: ['node_modules', 'lib', 'components'],
+    modulesDirectories: ['node_modules', 'lib'],
     alias: {},
     extensions: ['', '.js', '.jsx']
   },
