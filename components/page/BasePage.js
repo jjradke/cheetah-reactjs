@@ -3,7 +3,9 @@
 import React from 'react';
 
 class BasePage extends React.Component {
-    constructor() {
+    constructor(props) {
+        super(props);
+
         if (!this.state) {
             this.state = {};
         }

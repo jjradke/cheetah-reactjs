@@ -6,6 +6,8 @@ import FormatterFactory from '../format/FormatterFactory';
 export default class ExternalTable extends React.Component {
 
     constructor(props) {
+        super(props);
+
         this.props = props;
         this.state = this.getInitialState();
         this.changeSort = this.changeSort.bind(this);

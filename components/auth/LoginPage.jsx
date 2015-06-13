@@ -89,7 +89,6 @@ class LoginPage extends React.Component {
                 </div>
                 <div class="col-md-4">
                     <section id="socialLoginForm">
-                        <!-- social logins here-->
                         <button type="button" onClick={this.facebookLogin}>Login with Facebook</button>
                         <button type="button" onClick={this.linkedinLogin}>Login with LinkedIn</button>
                     </section>

@@ -2,7 +2,7 @@
   "name": "cheetah-reactjs",
   "version": "0.1.0",
   "description": "",
-  "main": "lib/cheetah-reactjs.js",
+  "main": "components/main.js",
   "scripts": {
     "deploy": "webpack -p",
     "build": "webpack"
@@ -24,7 +24,10 @@
     "react-hammerjs": "^0.2.0",
     "react-router": "^0.13.1",
     "react-style": "^0.5.1",
-    "react-time": "^2.5.0"
+    "react-time": "^2.5.0",
+    "numeral": "^1.5.3",
+    "underscore": "^1.8.3",
+    "griddle-react": "^0.2.3"
   },
   "devDependencies": {
     "css-loader": "^0.9.1",
