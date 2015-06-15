@@ -25,6 +25,7 @@
     "react-router": "^0.13.1",
     "react-style": "^0.5.1",
     "react-time": "^2.5.0",
+    "rx": "^2.4.7",
     "numeral": "^1.5.3",
     "underscore": "^1.8.3",
     "griddle-react": "^0.2.3"
@@ -40,7 +41,6 @@
     "lscache": "^1.0.5",
     "normalize.css": "^3.0.2",
     "react-style-webpack-plugin": "^0.4.0",
-    "rx": "^2.4.7",
     "style-loader": "^0.8.3",
     "url-loader": "^0.5.5",
     "webpack": "^1.7.3",
