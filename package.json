@@ -5,7 +5,7 @@
   "main": "build/main.js",
   "scripts": {
     "deploy": "webpack -p",
-    "build": "webpack"
+    "build": "webpack --verbose"
   },
   "author": "",
   "license": "ISC",
