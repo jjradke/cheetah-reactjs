@@ -40,5 +40,9 @@ module.exports = {
     AuthService: require('./security/AuthService'),
     FacebookManager: require('./security/FacebookManager'),
     LinkedinManager: require('./security/LinkedinManager'),
-    Session: require('./security/Session')
+    Session: require('./security/Session'),
+    StateProvider: require('./providers/StateProvider'),
+    CardExpirationMonthProvider: require('./providers/CardExpirationMonthProvider'),
+    CardExpirationYearProvider: require('./providers/CardExpirationYearProvider'),
+    CardTypeProvider: require('./providers/CardTypeProvider')
 };

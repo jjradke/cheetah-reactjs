@@ -12,6 +12,10 @@ class SelectField extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.forceUpdate();
+    }
+
     getValue() {
         return this.state.value;
     }
@@ -20,15 +24,15 @@ class SelectField extends React.Component {
         if (this.props.multiple) {
             if (isSelected) {
                 this.state.value = this.props.options.filter((innerField) => {
-                    return innerField.Id == field.val()
+                    return this.getValueFromItem(innerField) == field.val()
                         || this.state.value.map((f) => {
-                            return f.Id
-                        }).indexOf(innerField.Id) > -1;
+                            return this.getValueFromItem(f)
+                        }).indexOf(this.getValueFromItem(innerField)) > -1;
                 });
 
             } else {
                 this.state.value = this.state.value.filter((innerField) => {
-                    return innerField.Id != field.val();
+                    return this.getValueFromItem(innerField) != field.val();
                 });
             }
         } else {
@@ -38,6 +42,20 @@ class SelectField extends React.Component {
         this.props.onChange(this.state.value);
     }
 
+    getLabel(item) {
+        return (this.props.labelKey? item[this.props.labelKey]: item.Description);
+    }
+
+    getValueFromItem(item) {
+        return (this.props.valueKey? item[this.props.valueKey]: item.Id);
+    }
+
+    /* Multiselect component we use does not support disabling - this will disable
+     the button it renders. May want to switch to a new Multiselect. Will need to
+     test in Ecommerce Web Admin if so aswell.
+     */
+    componentDidMount() { $('.multiselect', React.findDOMNode(this).parentNode).prop('disabled', this.props.disabled); }
+    componentDidUpdate() { $('.multiselect', React.findDOMNode(this).parentNode).prop('disabled', this.props.disabled); }
 
     render() {
         // get latest value from parent on each render
@@ -45,18 +63,14 @@ class SelectField extends React.Component {
         var newValues = [];
         if (this.props.options) {
             for (var i = 0; i < this.props.options.length; i++) {
-                newValues.push({ value: this.props.options[i].Id, label: this.props.options[i].Description,
+                newValues.push({ value: this.getValueFromItem(this.props.options[i]), label: this.getLabel(this.props.options[i]),
                     selected: (!this.state.value?false:(this.props.multiple?this.state.value.map((value) => {
-                        return value.Id
-                    }).indexOf(this.props.options[i].Id) > -1:this.state.value == this.props.options[i].Id)) });
+                        return this.getValueFromItem(value);
+                    }).indexOf(this.getValueFromItem(this.props.options[i])) > -1:this.state.value == this.getValueFromItem(this.props.options[i]))) });
             }
         }
 
-        if (this.state.value != null && newValues.length > 0) {
-            return <Multiselect data={newValues} onChange={this.handleChange} multiple={this.props.multiple} />;
-        } else {
-            return <div/>;
-        }
+        return <Multiselect nonSelectedText="Choose an option" data={newValues} onChange={this.handleChange} multiple={this.props.multiple} disabled={this.props.disabled} size="2" />;
     }
 
 }
