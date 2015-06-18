@@ -10,9 +10,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Rx = require('Rx');
+var _rx = require('rx');
 
-var _Rx2 = _interopRequireDefault(_Rx);
+var _rx2 = _interopRequireDefault(_rx);
 
 var _Session = require('./Session');
 
@@ -54,7 +54,7 @@ var AuthManagerApi = (function () {
     }, {
         key: 'register',
         value: function register(userInformation) {
-            return _Rx2['default'].Observable.create(function (observer) {
+            return _rx2['default'].Observable.create(function (observer) {
                 _AuthService2['default'].register(userInformation).subscribe(function (response) {
                     observer.onNext(response);
                     observer.onCompleted();
@@ -66,7 +66,7 @@ var AuthManagerApi = (function () {
     }, {
         key: 'confirm',
         value: function confirm(data) {
-            return _Rx2['default'].Observable.create(function (observer) {
+            return _rx2['default'].Observable.create(function (observer) {
                 _AuthService2['default'].confirm(data).subscribe(function (response) {
                     observer.onNext(response);
                     observer.onCompleted();
@@ -82,7 +82,7 @@ var AuthManagerApi = (function () {
 
             if (!!credentials.provider) {
                 if (credentials.provider == 'facebook') {
-                    return _Rx2['default'].Observable.create(function (observer) {
+                    return _rx2['default'].Observable.create(function (observer) {
                         _FacebookManager2['default'].login().subscribe(function (facebookResponse) {
                             _AuthService2['default'].externalLogin(facebookResponse).subscribe(function (apiResponse) {
                                 console.log(apiResponse);
@@ -93,7 +93,7 @@ var AuthManagerApi = (function () {
                         });
                     });
                 } else if (credentials.provider == 'linkedin') {
-                    return _Rx2['default'].Observable.create(function (observer) {
+                    return _rx2['default'].Observable.create(function (observer) {
                         _LinkedinManager2['default'].login().subscribe(function (linkedinResponse) {
                             _AuthService2['default'].externalLogin(linkedinResponse).subscribe(function (apiResponse) {
                                 _this.createSession(apiResponse);
@@ -104,7 +104,7 @@ var AuthManagerApi = (function () {
                     });
                 }
             } else {
-                return _Rx2['default'].Observable.create(function (observer) {
+                return _rx2['default'].Observable.create(function (observer) {
                     return _AuthService2['default'].login(credentials).subscribe(function (response) {
                         _this.createSession(response);
                         observer.onNext(response);
@@ -120,7 +120,7 @@ var AuthManagerApi = (function () {
         value: function logout(clientOnly) {
             var _this2 = this;
 
-            return _Rx2['default'].Observable.create(function (observer) {
+            return _rx2['default'].Observable.create(function (observer) {
                 if (!clientOnly) {
                     _AuthService2['default'].logout().subscribe(function (response) {
                         _lscache2['default'].remove('session');
@@ -151,7 +151,7 @@ var AuthManagerApi = (function () {
     }, {
         key: 'forgot',
         value: function forgot(requestData) {
-            return _Rx2['default'].Observable.create(function (observer) {
+            return _rx2['default'].Observable.create(function (observer) {
                 _AuthService2['default'].forgot(requestData).subscribe(function (response) {
                     observer.onNext(response);
                     observer.onCompleted(response);
@@ -163,7 +163,7 @@ var AuthManagerApi = (function () {
     }, {
         key: 'reset',
         value: function reset(requestData) {
-            return _Rx2['default'].Observable.create(function (observer) {
+            return _rx2['default'].Observable.create(function (observer) {
                 _AuthService2['default'].reset(requestData).subscribe(function (response) {
                     observer.onNext(response);
                     observer.onCompleted(response);

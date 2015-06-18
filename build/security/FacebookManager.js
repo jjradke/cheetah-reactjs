@@ -6,9 +6,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-var _Rx = require('Rx');
+var _rx = require('rx');
 
-var _Rx2 = _interopRequireDefault(_Rx);
+var _rx2 = _interopRequireDefault(_rx);
 
 var FacebookManagerApi = (function () {
     function FacebookManagerApi() {
@@ -23,7 +23,7 @@ var FacebookManagerApi = (function () {
         value: function isAuthenticated() {
             var _this = this;
 
-            return _Rx2['default'].Observable.create(function (observer) {
+            return _rx2['default'].Observable.create(function (observer) {
                 if (_this.status != null) {
                     observer.onNext(_this.status);
                     observer.onCompleted();
@@ -41,7 +41,7 @@ var FacebookManagerApi = (function () {
         value: function login() {
             var _this2 = this;
 
-            return _Rx2['default'].Observable.create(function (observer) {
+            return _rx2['default'].Observable.create(function (observer) {
                 FB.login(function (facebookLoginResponse) {
                     console.log(facebookLoginResponse);
                     FB.api('/me', function (facebookApiResponse) {
