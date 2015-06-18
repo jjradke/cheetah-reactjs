@@ -14,6 +14,10 @@ var _Session = require('./Session');
 
 var _Session2 = _interopRequireDefault(_Session);
 
+var _rx = require('rx');
+
+var _rx2 = _interopRequireDefault(_rx);
+
 var LinkedinManagerApi = (function () {
     function LinkedinManagerApi() {
         _classCallCheck(this, LinkedinManagerApi);
@@ -22,7 +26,7 @@ var LinkedinManagerApi = (function () {
     _createClass(LinkedinManagerApi, [{
         key: 'isAuthenticated',
         value: function isAuthenticated() {
-            return Rx.Observable.create(function (observer) {
+            return _rx2['default'].Observable.create(function (observer) {
                 IN.API.Raw('/people/~').result(function () {
                     observer.onNext(true);
                     observer.onCompleted();
@@ -37,7 +41,7 @@ var LinkedinManagerApi = (function () {
         value: function login() {
             var _this = this;
 
-            return Rx.Observable.create(function (observer) {
+            return _rx2['default'].Observable.create(function (observer) {
                 IN.User.authorize(function () {
                     IN.API.Profile('me').fields('first-name', 'last-name', 'email-address').result(function (data) {
                         data = data.values[0];

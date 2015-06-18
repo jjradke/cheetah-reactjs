@@ -18,6 +18,10 @@ var _underscore = require('underscore');
 
 var _underscore2 = _interopRequireDefault(_underscore);
 
+var _rx = require('rx');
+
+var _rx2 = _interopRequireDefault(_rx);
+
 var DataStoreApi = (function () {
     function DataStoreApi() {
         _classCallCheck(this, DataStoreApi);
@@ -47,7 +51,7 @@ var DataStoreApi = (function () {
         value: function get(key, params, isSearch) {
             var _this = this;
 
-            return Rx.Observable.create(function (observer) {
+            return _rx2['default'].Observable.create(function (observer) {
                 if (_this.map[key] != null && !isSearch) {
                     observer.onNext(_this.map[key]);
                     observer.onCompleted();
@@ -75,10 +79,9 @@ var DataStoreApi = (function () {
         value: function getByOffset(key, params) {
             var _this2 = this;
 
-            console.log(params);
             var offset = params._offset,
                 size = params._size;
-            return Rx.Observable.create(function (observer) {
+            return _rx2['default'].Observable.create(function (observer) {
                 if (_this2.map[key] != null && _this2.map[key].length >= offset && _this2.map[key][offset] != null) {
                     observer.onNext(_this2.map[key].filter(function (item, index) {
                         return index >= offset && index < offset + size;
@@ -132,7 +135,7 @@ var DataStoreApi = (function () {
         value: function getById(key, id) {
             var _this3 = this;
 
-            return Rx.Observable.create(function (observer) {
+            return _rx2['default'].Observable.create(function (observer) {
                 var result = _this3.map[key] != null ? _this3.map[key].filter(function (item) {
                     if (typeof id === 'string' || typeof id === 'number') {
                         return item.Id == id;
@@ -161,7 +164,7 @@ var DataStoreApi = (function () {
 
             var index = this.indexMap[key];
 
-            return Rx.Observable.create(function (observer) {
+            return _rx2['default'].Observable.create(function (observer) {
                 if (_this4.map[key] != null && _this4.map[key].length > index) {
                     console.log('retrieved from cache!');
                     observer.onNext(_this4.map[key][_this4.indexMap[key]]);

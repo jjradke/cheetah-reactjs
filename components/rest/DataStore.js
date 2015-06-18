@@ -3,6 +3,7 @@
 import RestService from './RestService';
 import AuthManager from '../security/AuthManager';
 import _ from 'underscore';
+import Rx from 'rx';
 
 class DataStoreApi {
     constructor() {
@@ -50,7 +51,6 @@ class DataStoreApi {
     }
 
     getByOffset(key, params) {
-        console.log(params);
         var offset = params._offset,
             size = params._size;
         return Rx.Observable.create((observer) => {
