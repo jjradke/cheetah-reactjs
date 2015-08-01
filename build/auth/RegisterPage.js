@@ -36,6 +36,12 @@ var RegisterPage = (function (_React$Component) {
 
         this.register = this.register.bind(this);
         this.handleChange = this.handleChange.bind(this);
+
+        this.styles = {
+            register: {
+                marginTop: '10px'
+            }
+        };
     }
 
     _inherits(RegisterPage, _React$Component);
@@ -121,7 +127,7 @@ var RegisterPage = (function (_React$Component) {
                         { 'class': 'form-group' },
                         _react2['default'].createElement(
                             'div',
-                            { 'class': 'col-md-offset-2 col-md-10' },
+                            { className: 'col-md-offset-2 col-md-10', style: this.styles.register },
                             _react2['default'].createElement('input', { type: 'submit', value: 'Register', 'class': 'btn btn-default' })
                         )
                     )
@@ -150,7 +156,7 @@ var RegisterPage = (function (_React$Component) {
                             _react2['default'].createElement(
                                 'h4',
                                 null,
-                                'Register'
+                                'Create an account'
                             ),
                             _react2['default'].createElement('hr', null),
                             section

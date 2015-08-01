@@ -26,7 +26,6 @@ class FacebookManagerApi {
     login() {
         return Rx.Observable.create((observer) => {
             FB.login((facebookLoginResponse) => {
-                console.log(facebookLoginResponse);
                 FB.api('/me', (facebookApiResponse) => {
                     var response = {
                         Email: facebookApiResponse.email,

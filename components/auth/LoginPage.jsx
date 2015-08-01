@@ -37,11 +37,15 @@ class LoginPage extends React.Component {
         });
     }
 
-    facebookLogin() {
+    facebookLogin(e) {
+        e.preventDefault();
+
         this.login('facebook');
     }
 
-    linkedinLogin() {
+    linkedinLogin(e) {
+        e.preventDefault();
+
         this.login('linkedin');
     }
 
@@ -54,7 +58,6 @@ class LoginPage extends React.Component {
                 <div class="col-md-8">
                     <section id="loginForm">
                         <form class="form-horizontal" onSubmit={this.onSubmit}>
-                            <h4>Use a local account to log in.</h4>
                             <hr />
                             <div class="form-group">
                                 <label class="col-md-2 control-label" for="email">Email</label>
@@ -88,9 +91,15 @@ class LoginPage extends React.Component {
                     </section>
                 </div>
                 <div class="col-md-4">
+                    <p>Or, use a social media account..</p>
                     <section id="socialLoginForm">
-                        <button type="button" onClick={this.facebookLogin}>Login with Facebook</button>
-                        <button type="button" onClick={this.linkedinLogin}>Login with LinkedIn</button>
+                        <a href="#" onClick={this.facebookLogin}>
+                            <img src="../../../../images/auth/facebook-dreamstale25.png" width="32px" height="32px" />
+                       </a>
+                        &nbsp;
+                        <a href="#" onClick={this.linkedinLogin}>
+                            <img src="../../../../images/auth/linkedin-dreamstale45.png" width="32px" height="32px" />
+                        </a>
                     </section>
                 </div>
             </div>

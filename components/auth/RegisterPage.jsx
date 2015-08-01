@@ -16,6 +16,12 @@ class RegisterPage extends React.Component {
 
         this.register = this.register.bind(this);
         this.handleChange = this.handleChange.bind(this);
+
+        this.styles = {
+            register: {
+                marginTop: '10px'
+            }
+        }
     }
 
     componentDidMount() {
@@ -63,7 +69,7 @@ class RegisterPage extends React.Component {
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
+                                <div className="col-md-offset-2 col-md-10" style={this.styles.register}>
                                     <input type="submit" value="Register" class="btn btn-default" />
                                 </div>
                             </div>
@@ -76,7 +82,7 @@ class RegisterPage extends React.Component {
                 <div class="col-md-8">
                     <section id="registerForm">
                         <form class="form-horizontal" onSubmit={this.register}>
-                            <h4>Register</h4>
+                            <h4>Create an account</h4>
                             <hr />
                             {section}
                         </form>

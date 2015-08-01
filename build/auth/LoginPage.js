@@ -69,12 +69,16 @@ var LoginPage = (function (_React$Component) {
         }
     }, {
         key: 'facebookLogin',
-        value: function facebookLogin() {
+        value: function facebookLogin(e) {
+            e.preventDefault();
+
             this.login('facebook');
         }
     }, {
         key: 'linkedinLogin',
-        value: function linkedinLogin() {
+        value: function linkedinLogin(e) {
+            e.preventDefault();
+
             this.login('linkedin');
         }
     }, {
@@ -97,11 +101,6 @@ var LoginPage = (function (_React$Component) {
                         _react2['default'].createElement(
                             'form',
                             { 'class': 'form-horizontal', onSubmit: this.onSubmit },
-                            _react2['default'].createElement(
-                                'h4',
-                                null,
-                                'Use a local account to log in.'
-                            ),
                             _react2['default'].createElement('hr', null),
                             _react2['default'].createElement(
                                 'div',
@@ -174,17 +173,23 @@ var LoginPage = (function (_React$Component) {
                     'div',
                     { 'class': 'col-md-4' },
                     _react2['default'].createElement(
+                        'p',
+                        null,
+                        'Or, use a social media account..'
+                    ),
+                    _react2['default'].createElement(
                         'section',
                         { id: 'socialLoginForm' },
                         _react2['default'].createElement(
-                            'button',
-                            { type: 'button', onClick: this.facebookLogin },
-                            'Login with Facebook'
+                            'a',
+                            { href: '#', onClick: this.facebookLogin },
+                            _react2['default'].createElement('img', { src: '../../../../images/auth/facebook-dreamstale25.png', width: '32px', height: '32px' })
                         ),
+                        ' ',
                         _react2['default'].createElement(
-                            'button',
-                            { type: 'button', onClick: this.linkedinLogin },
-                            'Login with LinkedIn'
+                            'a',
+                            { href: '#', onClick: this.linkedinLogin },
+                            _react2['default'].createElement('img', { src: '../../../../images/auth/linkedin-dreamstale45.png', width: '32px', height: '32px' })
                         )
                     )
                 )

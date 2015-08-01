@@ -43,7 +43,6 @@ var FacebookManagerApi = (function () {
 
             return _Rx2['default'].Observable.create(function (observer) {
                 FB.login(function (facebookLoginResponse) {
-                    console.log(facebookLoginResponse);
                     FB.api('/me', function (facebookApiResponse) {
                         var response = {
                             Email: facebookApiResponse.email,

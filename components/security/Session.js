@@ -18,7 +18,7 @@ class SessionApi {
     }
 
     isAuthenticated() {
-        return this.id != null && this.token != null && this.permissions.length > 0;
+        return this.id != null && this.token != null;
     }
 
     isAuthorized(permission) {

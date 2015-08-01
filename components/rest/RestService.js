@@ -49,20 +49,23 @@ class RestServiceApi {
           observer.onCompleted();
         },
         error: (error) => {
-          observer.onErorr(error);
+          observer.onError(error);
         }
       });
     });
   }
 
   update(resourceName, id, params) {
-    var url = this.baseUrl + resourceName + '/' + encodeURIComponent(id);
+    if (arguments.length == 2) {
+      params = id;
+      id = null;
+    }
+    var url = this.baseUrl + resourceName + (id != null ? '/' + encodeURIComponent(id) : '');
     return Rx.Observable.create((observer) => {
       $.ajax({
         url: url,
         type: 'PUT',
         data: params,
-        dataType: 'json',
         success: (result) => {
           observer.onNext(result);
           observer.onCompleted();
