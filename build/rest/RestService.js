@@ -6,9 +6,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-var _Rx = require('Rx');
+var _rx = require('rx');
 
-var _Rx2 = _interopRequireDefault(_Rx);
+var _rx2 = _interopRequireDefault(_rx);
 
 var _jquery = require('jquery');
 
@@ -38,7 +38,7 @@ var RestServiceApi = (function () {
       var data = {};
       if (typeof addl === 'object') data = addl;
 
-      return _Rx2['default'].Observable.create(function (observer) {
+      return _rx2['default'].Observable.create(function (observer) {
         _jquery2['default'].get(url, data, function (result) {
           observer.onNext(result);
           observer.onCompleted();
@@ -51,7 +51,7 @@ var RestServiceApi = (function () {
     key: 'find',
     value: function find(resourceName, id) {
       var url = this.baseUrl + resourceName + '/' + encodeURIComponent(id);
-      return _Rx2['default'].Observable.create(function (observer) {
+      return _rx2['default'].Observable.create(function (observer) {
         _jquery2['default'].get(url, function (result) {
           observer.onNext(result.data);
           observer.onCompleted();
@@ -64,7 +64,7 @@ var RestServiceApi = (function () {
     key: 'delete',
     value: function _delete(resourceName, id) {
       var url = this.baseUrl + resourceName + '/' + encodeURIComponent(id);
-      return _Rx2['default'].Observable.create(function (observer) {
+      return _rx2['default'].Observable.create(function (observer) {
         _jquery2['default'].ajax({
           url: url,
           type: 'DELETE',
@@ -73,7 +73,7 @@ var RestServiceApi = (function () {
             observer.onCompleted();
           },
           error: function error(_error) {
-            observer.onErorr(_error);
+            observer.onError(_error);
           }
         });
       });
@@ -85,14 +85,12 @@ var RestServiceApi = (function () {
         params = id;
         id = null;
       }
-      
       var url = this.baseUrl + resourceName + (id != null ? '/' + encodeURIComponent(id) : '');
-      return _Rx2['default'].Observable.create(function (observer) {
+      return _rx2['default'].Observable.create(function (observer) {
         _jquery2['default'].ajax({
           url: url,
           type: 'PUT',
           data: params,
-          dataType: 'json',
           success: function success(result) {
             observer.onNext(result);
             observer.onCompleted();
@@ -107,7 +105,7 @@ var RestServiceApi = (function () {
     key: 'create',
     value: function create(resourceName, params) {
       var url = this.baseUrl + resourceName;
-      return _Rx2['default'].Observable.create(function (observer) {
+      return _rx2['default'].Observable.create(function (observer) {
         _jquery2['default'].post(url, params, function (result) {
           observer.onNext(result.data);
           observer.onCompleted();
