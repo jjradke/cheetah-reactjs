@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import Rx from 'Rx';
+import Rx from 'rx';
 import Session from './Session';
 import FacebookManager from './FacebookManager';
 import LinkedinManager from './LinkedinManager';

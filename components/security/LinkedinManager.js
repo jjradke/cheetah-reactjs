@@ -2,6 +2,7 @@
 
 import RestService from '../rest/RestService';
 import Session from './Session';
+import Rx from 'rx';
 
 class LinkedinManagerApi {
     constructor() {

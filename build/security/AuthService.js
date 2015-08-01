@@ -6,9 +6,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-var _Rx = require('Rx');
+var _rx = require('rx');
 
-var _Rx2 = _interopRequireDefault(_Rx);
+var _rx2 = _interopRequireDefault(_rx);
 
 var _configApplicationConfig = require('../config/ApplicationConfig');
 
@@ -26,7 +26,7 @@ var AuthServiceApi = (function () {
     _createClass(AuthServiceApi, [{
         key: 'register',
         value: function register(userInformation) {
-            return _Rx2['default'].Observable.create(function (observer) {
+            return _rx2['default'].Observable.create(function (observer) {
                 $.ajax({
                     url: _configApplicationConfig2['default'].apiBasePath + '/api/Account/Register',
                     type: 'POST',
@@ -44,7 +44,7 @@ var AuthServiceApi = (function () {
     }, {
         key: 'confirm',
         value: function confirm(data) {
-            return _Rx2['default'].Observable.create(function (observer) {
+            return _rx2['default'].Observable.create(function (observer) {
                 $.ajax({
                     url: _configApplicationConfig2['default'].apiBasePath + '/api/Account/ConfirmEmail',
                     type: 'POST',
@@ -62,7 +62,7 @@ var AuthServiceApi = (function () {
     }, {
         key: 'login',
         value: function login(credentials) {
-            return _Rx2['default'].Observable.create(function (observer) {
+            return _rx2['default'].Observable.create(function (observer) {
                 $.ajax({
                     url: _configApplicationConfig2['default'].apiBasePath + '/api/Account/Login',
                     type: 'POST',
@@ -80,7 +80,7 @@ var AuthServiceApi = (function () {
     }, {
         key: 'logout',
         value: function logout() {
-            return _Rx2['default'].Observable.create(function (observer) {
+            return _rx2['default'].Observable.create(function (observer) {
                 $.ajax({
                     url: _configApplicationConfig2['default'].apiBasePath + '/api/Account/Logout',
                     type: 'POST',
@@ -97,7 +97,7 @@ var AuthServiceApi = (function () {
     }, {
         key: 'forgot',
         value: function forgot(requestData) {
-            return _Rx2['default'].Observable.create(function (observer) {
+            return _rx2['default'].Observable.create(function (observer) {
                 $.ajax({
                     url: _configApplicationConfig2['default'].apiBasePath + '/api/Account/ForgotPassword',
                     type: 'POST',
@@ -115,7 +115,7 @@ var AuthServiceApi = (function () {
     }, {
         key: 'reset',
         value: function reset(requestData) {
-            return _Rx2['default'].Observable.create(function (observer) {
+            return _rx2['default'].Observable.create(function (observer) {
                 $.ajax({
                     url: _configApplicationConfig2['default'].apiBasePath + '/api/Account/ResetPassword',
                     type: 'POST',
@@ -133,7 +133,7 @@ var AuthServiceApi = (function () {
     }, {
         key: 'externalLogin',
         value: function externalLogin(request) {
-            return _Rx2['default'].Observable.create(function (observer) {
+            return _rx2['default'].Observable.create(function (observer) {
                 $.ajax({
                     url: _configApplicationConfig2['default'].apiBasePath + '/api/Account/ExternalLogin',
                     type: 'POST',

@@ -73,7 +73,7 @@ var RestServiceApi = (function () {
             observer.onCompleted();
           },
           error: function error(_error) {
-            observer.onError(_error);
+            observer.onErorr(_error);
           }
         });
       });
@@ -85,12 +85,14 @@ var RestServiceApi = (function () {
         params = id;
         id = null;
       }
+      
       var url = this.baseUrl + resourceName + (id != null ? '/' + encodeURIComponent(id) : '');
       return _Rx2['default'].Observable.create(function (observer) {
         _jquery2['default'].ajax({
           url: url,
           type: 'PUT',
           data: params,
+          dataType: 'json',
           success: function success(result) {
             observer.onNext(result);
             observer.onCompleted();

@@ -1,6 +1,6 @@
 'use strict';
 
-import Rx from 'Rx';
+import Rx from 'rx';
 
 class FacebookManagerApi {
     constructor() {

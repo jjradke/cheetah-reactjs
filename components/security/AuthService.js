@@ -1,6 +1,6 @@
 'use strict';
 
-import Rx from 'Rx';
+import Rx from 'rx';
 import ApplicationConfig from '../config/ApplicationConfig';
 import Session from './Session';
 
