@@ -107,7 +107,7 @@ var RestServiceApi = (function () {
       var url = this.baseUrl + resourceName;
       return _rx2['default'].Observable.create(function (observer) {
         _jquery2['default'].post(url, params, function (result) {
-          observer.onNext(result.data);
+          observer.onNext(result);
           observer.onCompleted();
         }).fail(function (error) {
           observer.onError(error);

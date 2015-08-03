@@ -113,6 +113,9 @@ class DataStoreApi {
                 return null;
             }) : [];
             if (result.length == 0) {
+                if (typeof id === 'object') {
+                    id = id.Value;
+                }
                 RestService.find(key, id).subscribe((result) => {
                     observer.onNext(result);
                     observer.onCompleted();

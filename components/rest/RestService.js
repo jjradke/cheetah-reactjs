@@ -81,7 +81,7 @@ class RestServiceApi {
     var url = this.baseUrl + resourceName;
     return Rx.Observable.create((observer) => {
       $.post(url, params, (result) => {
-        observer.onNext(result.data);
+        observer.onNext(result);
         observer.onCompleted();
       })
       .fail((error) => {

@@ -145,6 +145,9 @@ var DataStoreApi = (function () {
                     return null;
                 }) : [];
                 if (result.length == 0) {
+                    if (typeof id === 'object') {
+                        id = id.Value;
+                    }
                     _RestService2['default'].find(key, id).subscribe(function (result) {
                         observer.onNext(result);
                         observer.onCompleted();
