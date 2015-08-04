@@ -5,10 +5,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var ApplicationConfigApi = function ApplicationConfigApi() {
     _classCallCheck(this, ApplicationConfigApi);
 
-    this.apiBasePath = 'http://devapi.facility.supplies';
-    this.esBasePath = 'http://devqueryapi.facility.supplies';
-    //this.apiBasePath = 'https://localhost:44301';
-    //this.esBasePath = 'http://localhost:3000';
+    this.apiBasePath = window.__env.storeApiUrl;
+    this.esBasePath = window.__env.queryApiUrl;
 };
 
 var ApplicationConfig = new ApplicationConfigApi();

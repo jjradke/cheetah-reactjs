@@ -2,13 +2,13 @@
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _react = require('react');
 
@@ -27,6 +27,8 @@ var _formatFormatterFactory = require('../format/FormatterFactory');
 var _formatFormatterFactory2 = _interopRequireDefault(_formatFormatterFactory);
 
 var ExternalTable = (function (_React$Component) {
+    _inherits(ExternalTable, _React$Component);
+
     function ExternalTable(props) {
         _classCallCheck(this, ExternalTable);
 
@@ -47,19 +49,17 @@ var ExternalTable = (function (_React$Component) {
         }
     }
 
-    _inherits(ExternalTable, _React$Component);
-
     _createClass(ExternalTable, [{
         key: 'getInitialState',
         value: function getInitialState() {
             var initial = {
-                'results': [],
-                'currentPage': 0,
-                'maxPages': 0,
-                'externalResultsPerPage': 20,
-                'externalSortColumn': null,
-                'externalSortAscending': true,
-                'data': this.props.data == null ? [] : this.props.data
+                "results": [],
+                "currentPage": 0,
+                "maxPages": 0,
+                "externalResultsPerPage": 20,
+                "externalSortColumn": null,
+                "externalSortAscending": true,
+                "data": this.props.data == null ? [] : this.props.data
             };
 
             return initial;
@@ -89,8 +89,8 @@ var ExternalTable = (function (_React$Component) {
 
             if (this.state.data > number) {
                 this.setState({
-                    'results': this.state.data.slice(number, number + this.state.externalResultsPerPage > this.state.data.length ? this.state.data.length : number + this.state.externalResultsPerPage),
-                    'currentPage': index
+                    "results": this.state.data.slice(number, number + this.state.externalResultsPerPage > this.state.data.length ? this.state.data.length : number + this.state.externalResultsPerPage),
+                    "currentPage": index
                 });
             } else {
                 this.props.getData({
@@ -99,7 +99,7 @@ var ExternalTable = (function (_React$Component) {
                 });
 
                 this.setState({
-                    'currentPage': index
+                    "currentPage": index
                 });
             }
         }
@@ -115,11 +115,11 @@ var ExternalTable = (function (_React$Component) {
                 sortedData.reverse();
             }
             return {
-                'currentPage': 0,
-                'externalSortColumn': sort,
-                'externalSortAscending': sortAscending,
-                'data': sortedData,
-                'results': sortedData.slice(0, this.state.externalResultsPerPage)
+                "currentPage": 0,
+                "externalSortColumn": sort,
+                "externalSortAscending": sortAscending,
+                "data": sortedData,
+                "results": sortedData.slice(0, this.state.externalResultsPerPage)
             };
         }
     }, {
@@ -135,7 +135,7 @@ var ExternalTable = (function (_React$Component) {
             //this is a lot of code for what should normally just be a method that is used to pass data back and forth
             var sortedData = this.sortData(this.state.externalSortColumn, this.state.externalSortAscending, this.state.data);
 
-            if (filter === '') {
+            if (filter === "") {
                 this.setState(_underscore2['default'].extend(sortedData, { maxPages: Math.round(sortedData.data.length > this.state.externalResultsPerPage ? sortedData.data.length / this.state.externalResultsPerPage : 1) }));
 
                 return;
@@ -144,7 +144,7 @@ var ExternalTable = (function (_React$Component) {
             var filteredData = _underscore2['default'].filter(sortedData.data, function (item) {
                 var arr = _underscore2['default'].values(item);
                 for (var i = 0; i < arr.length; i++) {
-                    if ((arr[i] || '').toString().toLowerCase().indexOf(filter.toLowerCase()) >= 0) {
+                    if ((arr[i] || "").toString().toLowerCase().indexOf(filter.toLowerCase()) >= 0) {
                         return true;
                     }
                 }
@@ -155,7 +155,7 @@ var ExternalTable = (function (_React$Component) {
             this.setState({
                 data: filteredData,
                 maxPages: Math.round(filteredData.length > this.state.externalResultsPerPage ? filteredData.length / this.state.externalResultsPerPage : 1),
-                'results': filteredData.slice(0, this.state.externalResultsPerPage)
+                "results": filteredData.slice(0, this.state.externalResultsPerPage)
             });
         }
     }, {
@@ -181,9 +181,9 @@ var ExternalTable = (function (_React$Component) {
                     columnName: item.name
                 };
 
-                if (item.name.split('.').length > 1) {
+                if (item.name.split("\.").length > 1) {
                     data.forEach(function (dataItem) {
-                        var itemSplit = item.name.split('.');
+                        var itemSplit = item.name.split("\.");
 
                         var temp = dataItem[itemSplit[0]];
 
