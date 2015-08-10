@@ -22,6 +22,10 @@ class AuthManagerApi {
         return Session.id;
     }
 
+    getName() {
+        return Session.name;
+    }
+
     register(userInformation) {
         return Rx.Observable.create((observer) => {
            AuthService.register(userInformation).subscribe((response) => {
@@ -147,7 +151,8 @@ class AuthManagerApi {
             id: authResponse.userId||authResponse.id,
             roles: authResponse.roles,
             permissions: authResponse.permissions,
-            landingPage: authResponse.landingPage
+            landingPage: authResponse.landingPage,
+            name: authResponse.name
         };
 
         lscache.set('session', session);

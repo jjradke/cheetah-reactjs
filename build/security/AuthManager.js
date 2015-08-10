@@ -52,6 +52,11 @@ var AuthManagerApi = (function () {
             return _Session2['default'].id;
         }
     }, {
+        key: 'getName',
+        value: function getName() {
+            return _Session2['default'].name;
+        }
+    }, {
         key: 'register',
         value: function register(userInformation) {
             return _rx2['default'].Observable.create(function (observer) {
@@ -190,7 +195,8 @@ var AuthManagerApi = (function () {
                 id: authResponse.userId || authResponse.id,
                 roles: authResponse.roles,
                 permissions: authResponse.permissions,
-                landingPage: authResponse.landingPage
+                landingPage: authResponse.landingPage,
+                name: authResponse.name
             };
 
             _lscache2['default'].set('session', session);

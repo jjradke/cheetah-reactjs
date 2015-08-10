@@ -15,6 +15,7 @@ var SessionApi = (function () {
         _classCallCheck(this, SessionApi);
 
         this.id = null;
+        this.name = null;
         this.token = null;
         this.roles = [];
         this.permissions = [];
@@ -46,6 +47,7 @@ var SessionApi = (function () {
             this.roles = [];
             this.permissions = [];
             this.landingPage = null;
+            this.name = null;
         }
     }]);
 

@@ -5,6 +5,7 @@ import RestService from '../rest/RestService';
 class SessionApi {
     constructor() {
         this.id = null;
+        this.name = null;
         this.token = null;
         this.roles = [];
         this.permissions = [];
@@ -31,6 +32,7 @@ class SessionApi {
         this.roles = [];
         this.permissions = [];
         this.landingPage = null;
+        this.name = null;
     }
 }
 

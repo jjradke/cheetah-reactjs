@@ -43,7 +43,7 @@ var LinkedinManagerApi = (function () {
 
             return _rx2['default'].Observable.create(function (observer) {
                 IN.User.authorize(function () {
-                    IN.API.Profile("me").fields("first-name", "last-name", "email-address").result(function (data) {
+                    IN.API.Profile('me').fields('first-name', 'last-name', 'email-address').result(function (data) {
                         data = data.values[0];
 
                         var response = {
