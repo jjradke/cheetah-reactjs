@@ -5,7 +5,7 @@
   "main": "build/main.js",
   "scripts": {
     "deploy": "webpack -p",
-    "build": "babel components --out-dir build"
+    "build": "babel --stage=1 components --out-dir build"
   },
   "author": "",
   "license": "ISC",
@@ -14,21 +14,25 @@
     "babel-loader": "^5.1.4",
     "bootstrap": "^3.3.4",
     "classnames": "^1.2.0",
+    "formsy-react": "^0.14.1",
+    "griddle-react": "^0.2.3",
     "jquery": "^2.1.3",
+    "numeral": "^1.5.3",
     "react": "^0.13.1",
     "react-bootstrap": "^0.17.0",
     "react-bootstrap-modal": "^1.0.2",
     "react-bootstrap-multiselect": "^0.2.0",
     "react-class-helper": "^0.1.2",
+    "react-cookie": "^0.3.4",
     "react-datepicker": "^0.6.2",
     "react-hammerjs": "^0.2.0",
+    "react-mixin": "^1.7.0",
     "react-router": "^0.13.1",
+    "react-select": "^0.6.7",
     "react-style": "^0.5.1",
     "react-time": "^2.5.0",
     "rx": "^2.4.7",
-    "numeral": "^1.5.3",
-    "underscore": "^1.8.3",
-    "griddle-react": "^0.2.3"
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "css-loader": "^0.9.1",
