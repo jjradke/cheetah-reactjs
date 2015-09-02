@@ -7,6 +7,7 @@ import FacebookManager from './FacebookManager';
 import LinkedinManager from './LinkedinManager';
 import AuthService from './AuthService';
 import lscache from 'lscache';
+import cookie from 'react-cookie';
 
 class AuthManagerApi {
     constructor() {
@@ -95,7 +96,10 @@ class AuthManagerApi {
                    observer.onNext(response);
                    observer.onCompleted();
                }, (errorResponse) => {
-                   if (errorResponse.status == 401) {
+                   console.log(errorResponse);
+                   if (errorResponse.status == 401
+                            || errorResponse.status == 403
+                            || errorResponse.status == 0) {
                        lscache.remove('session');
                        this.clearHeaders();
                        Session.destroy();
@@ -161,10 +165,16 @@ class AuthManagerApi {
     }
 
     registerHeaders(token, id) {
-        $.ajaxSetup({
+        /*$.ajaxSetup({
             headers: {
                 'ecommerce-security-token': token,
                 'ecommerce-security-user': id
+            }
+        });*/
+
+        $.ajaxSetup({
+            xhrFields: {
+                withCredentials: true
             }
         });
     }

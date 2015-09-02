@@ -34,6 +34,10 @@ var _lscache = require('lscache');
 
 var _lscache2 = _interopRequireDefault(_lscache);
 
+var _reactCookie = require('react-cookie');
+
+var _reactCookie2 = _interopRequireDefault(_reactCookie);
+
 var AuthManagerApi = (function () {
     function AuthManagerApi() {
         _classCallCheck(this, AuthManagerApi);
@@ -134,7 +138,8 @@ var AuthManagerApi = (function () {
                         observer.onNext(response);
                         observer.onCompleted();
                     }, function (errorResponse) {
-                        if (errorResponse.status == 401) {
+                        console.log(errorResponse);
+                        if (errorResponse.status == 401 || errorResponse.status == 403 || errorResponse.status == 0) {
                             _lscache2['default'].remove('session');
                             _this2.clearHeaders();
                             _Session2['default'].destroy();
@@ -206,10 +211,16 @@ var AuthManagerApi = (function () {
     }, {
         key: 'registerHeaders',
         value: function registerHeaders(token, id) {
-            $.ajaxSetup({
+            /*$.ajaxSetup({
                 headers: {
                     'ecommerce-security-token': token,
                     'ecommerce-security-user': id
+                }
+            });*/
+
+            $.ajaxSetup({
+                xhrFields: {
+                    withCredentials: true
                 }
             });
         }
