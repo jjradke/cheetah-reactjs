@@ -1,10 +1,10 @@
 'use strict';
 
 import React from 'react';
-import TextField from '../layout/TextField';
-import CheckboxField from '../layout/CheckboxField';
-import SelectField from '../layout/SelectField';
-import NumberField from '../layout/NumberField';
+import TextField from '../layout/form/fields/TextField';
+import CheckboxField from '../layout/form/fields/CheckboxField';
+import SelectField from '../layout/form/fields/SelectField';
+import NumberField from '../layout/form/fields/NumberField';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 

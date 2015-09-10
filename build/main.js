@@ -21,14 +21,9 @@ module.exports = {
     ApplicationBody: require('./layout/ApplicationBody'),
     ApplicationFooter: require('./layout/ApplicationFooter'),
     ApplicationHeader: require('./layout/ApplicationHeader'),
-    CheckboxField: require('./layout/CheckboxField'),
     ExternalTable: require('./layout/ExternalTable'),
     ExternalTableContainer: require('./layout/ExternalTableContainer'),
-    NumberField: require('./layout/NumberField'),
-    SelectDialog: require('./layout/SelectDialog'),
-    SelectField: require('./layout/SelectField'),
     Table: require('./layout/Table'),
-    TextField: require('./layout/TextField'),
     BasePage: require('./page/BasePage'),
     Page: require('./page/Page'),
     DataStore: require('./rest/DataStore'),
@@ -46,5 +41,19 @@ module.exports = {
     StateProvider: require('./providers/StateProvider'),
     CardExpirationMonthProvider: require('./providers/CardExpirationMonthProvider'),
     CardExpirationYearProvider: require('./providers/CardExpirationYearProvider'),
-    CardTypeProvider: require('./providers/CardTypeProvider')
+    CardTypeProvider: require('./providers/CardTypeProvider'),
+    StripeUtils: require('./security/StripeUtils'),
+
+    /** form fields **/
+    Form: require('./layout/form/Form'),
+    FormsyField: require('./layout/form/fields/FormsyField'),
+    TextField: require('./layout/form/fields/TextField'),
+    SelectField: require('./layout/form/fields/SelectField'),
+    CheckboxField: require('./layout/form/fields/CheckboxField'),
+    NumberField: require('./layout/form/fields/NumberField'),
+    CreditCardField: require('./layout/form/fields/credit-card/CreditCardField'),
+    CreditCardResolver: require('./layout/form/fields/credit-card/CreditCardResolver'),
+    EmailField: require('./layout/form/fields/EmailField'),
+    InputField: require('./layout/form/fields/InputField'),
+    PhoneNumberField: require('./layout/form/fields/PhoneNumberField')
 };

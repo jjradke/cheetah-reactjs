@@ -12,7 +12,7 @@ var CardExpirationYearProviderApi = (function () {
 
         for (var i = 2015; i < 2025; i++) {
             this.years.push({
-                value: i
+                value: '' + i
             });
         }
     }

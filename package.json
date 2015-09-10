@@ -5,7 +5,7 @@
   "main": "build/main.js",
   "scripts": {
     "deploy": "webpack -p",
-    "build": "babel --stage=1 components --out-dir build"
+    "build": "babel --stage=0 components --out-dir build"
   },
   "author": "",
   "license": "ISC",
@@ -32,7 +32,8 @@
     "react-style": "^0.5.1",
     "react-time": "^2.5.0",
     "rx": "^2.4.7",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "formsy-react": "^0.14.1"
   },
   "devDependencies": {
     "css-loader": "^0.9.1",

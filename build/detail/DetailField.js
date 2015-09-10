@@ -14,21 +14,21 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _layoutTextField = require('../layout/TextField');
+var _layoutFormFieldsTextField = require('../layout/form/fields/TextField');
 
-var _layoutTextField2 = _interopRequireDefault(_layoutTextField);
+var _layoutFormFieldsTextField2 = _interopRequireDefault(_layoutFormFieldsTextField);
 
-var _layoutCheckboxField = require('../layout/CheckboxField');
+var _layoutFormFieldsCheckboxField = require('../layout/form/fields/CheckboxField');
 
-var _layoutCheckboxField2 = _interopRequireDefault(_layoutCheckboxField);
+var _layoutFormFieldsCheckboxField2 = _interopRequireDefault(_layoutFormFieldsCheckboxField);
 
-var _layoutSelectField = require('../layout/SelectField');
+var _layoutFormFieldsSelectField = require('../layout/form/fields/SelectField');
 
-var _layoutSelectField2 = _interopRequireDefault(_layoutSelectField);
+var _layoutFormFieldsSelectField2 = _interopRequireDefault(_layoutFormFieldsSelectField);
 
-var _layoutNumberField = require('../layout/NumberField');
+var _layoutFormFieldsNumberField = require('../layout/form/fields/NumberField');
 
-var _layoutNumberField2 = _interopRequireDefault(_layoutNumberField);
+var _layoutFormFieldsNumberField2 = _interopRequireDefault(_layoutFormFieldsNumberField);
 
 var _reactDatepicker = require('react-datepicker');
 
@@ -156,13 +156,13 @@ var DetailField = (function (_React$Component) {
             }
             var field;
             if (this.props.type == 'text') {
-                field = _react2['default'].createElement(_layoutTextField2['default'], { field: this.state.field, value: this.state.value, onChange: this.handleChange });
+                field = _react2['default'].createElement(_layoutFormFieldsTextField2['default'], { field: this.state.field, value: this.state.value, onChange: this.handleChange });
             } else if (this.props.type == 'checkbox') {
-                field = _react2['default'].createElement(_layoutCheckboxField2['default'], { field: this.state.field, value: this.state.value, onChange: this.handleChange });
+                field = _react2['default'].createElement(_layoutFormFieldsCheckboxField2['default'], { field: this.state.field, value: this.state.value, onChange: this.handleChange });
             } else if (this.props.type == 'list') {
-                field = _react2['default'].createElement(_layoutSelectField2['default'], { value: this.state.value, options: this.props.options, multiple: this.props.multiple, onChange: this.handleChange });
+                field = _react2['default'].createElement(_layoutFormFieldsSelectField2['default'], { value: this.state.value, options: this.props.options, multiple: this.props.multiple, onChange: this.handleChange });
             } else if (this.props.type == 'number') {
-                field = _react2['default'].createElement(_layoutNumberField2['default'], { field: this.state.field, value: this.state.value, max: this.props.max,
+                field = _react2['default'].createElement(_layoutFormFieldsNumberField2['default'], { field: this.state.field, value: this.state.value, max: this.props.max,
                     min: this.props.min, onChange: this.handleChange });
             } else if (this.props.type == 'date') {
                 field = _react2['default'].createElement(_reactDatepicker2['default'], {
