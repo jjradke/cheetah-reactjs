@@ -18,7 +18,7 @@ class NumberField extends FormsyField {
 
     handleChange(event) {
         this.setState({ value: event.target.value });
-        this.props.onChange(event.target.value);
+        this.props.onChange(event.target.value, event);
     }
 
     render() {

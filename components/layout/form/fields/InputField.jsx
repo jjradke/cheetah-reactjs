@@ -15,7 +15,7 @@ class InputField extends FormsyField {
         this.setValue(e.currentTarget.value);
 
         if (this.props.onChange) {
-            this.props.onChange(e);
+            this.props.onChange(e.currentTarget.value, e);
         }
     };
 

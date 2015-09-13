@@ -40,7 +40,7 @@ var CreditCardField = (function (_FormsyField) {
             }
 
             if (_this.props.onCardChange) {
-                _this.props.onCardChange(e);
+                _this.props.onCardChange(targetVal, e);
             }
 
             if (!e.manual) {
@@ -113,6 +113,7 @@ var CreditCardField = (function (_FormsyField) {
         value: function componentDidMount() {
             this.setCardNumber({
                 target: {
+                    name: this.props.name,
                     value: this.props.value
                 },
                 manual: true

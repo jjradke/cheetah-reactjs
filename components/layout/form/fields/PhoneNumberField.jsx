@@ -67,7 +67,7 @@ class PhoneNumberField extends FormsyField {
         e.target.value = this.formatNumber(e.target.value);
 
         if (this.props.onChange) {
-            this.props.onChange(e);
+            this.props.onChange(e.target.value, e);
         }
         this.setValue(e.target.value);
         this.setState({phoneNumber: e.target.value, wasBackspace: false});

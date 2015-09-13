@@ -55,7 +55,7 @@ var PhoneNumberField = (function (_FormsyField) {
             e.target.value = _this.formatNumber(e.target.value);
 
             if (_this.props.onChange) {
-                _this.props.onChange(e);
+                _this.props.onChange(e.target.value, e);
             }
             _this.setValue(e.target.value);
             _this.setState({ phoneNumber: e.target.value, wasBackspace: false });

@@ -28,7 +28,7 @@ var InputField = (function (_FormsyField) {
             _this.setValue(e.currentTarget.value);
 
             if (_this.props.onChange) {
-                _this.props.onChange(e);
+                _this.props.onChange(e.currentTarget.value, e);
             }
         };
     }

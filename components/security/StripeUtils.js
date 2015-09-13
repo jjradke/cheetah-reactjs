@@ -23,12 +23,8 @@ class StripeUtilsApi {
             }
         };
 
-        console.log(obj);
-
         return Rx.Observable.create((observer) => {
             Stripe.card.createToken(obj, (status, response) => {
-                console.log('stripe response');
-                console.log(response);
                 if (status === 200) {
                     observer.onNext(response);
                     observer.onCompleted();

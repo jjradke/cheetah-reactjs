@@ -35,7 +35,11 @@ var SelectField = (function (_FormsyField) {
                 _this.state.value = value;
             }
             _this.setValue(_this.state.value);
-            _this.props.onChange(_this.state.value);
+            _this.props.onChange(_this.state.value, {
+                target: {
+                    name: _this.props.name
+                }
+            });
         };
 
         if (typeof props.value === 'string' && this.props.multiple) {

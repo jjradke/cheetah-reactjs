@@ -38,14 +38,14 @@ class EmailField extends FormsyField {
                 if (this.props.match === targetVal) {
                     this.setState({email: targetVal, message: ''});
 
-                    this.props.handleChange(e);
+                    this.props.handleChange(targetVal, e);
                 } else {
                     this.setState({message: 'Must match Email field'});
                 }
             } else {
                 this.setState({email: targetVal, message: ''});
 
-                this.props.handleChange(e);
+                this.props.handleChange(targetVal, e);
             }
         } else {
             this.setState({message: 'Invalid'});
@@ -58,7 +58,7 @@ class EmailField extends FormsyField {
 
         this.setState({email: targetVal});
 
-        this.props.handleChange(e);
+        this.props.handleChange(targetVal);
     };
 }
 

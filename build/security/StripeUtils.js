@@ -35,12 +35,8 @@ var StripeUtilsApi = (function () {
                 }
             };
 
-            console.log(obj);
-
             return _rx2['default'].Observable.create(function (observer) {
                 Stripe.card.createToken(obj, function (status, response) {
-                    console.log('stripe response');
-                    console.log(response);
                     if (status === 200) {
                         observer.onNext(response);
                         observer.onCompleted();

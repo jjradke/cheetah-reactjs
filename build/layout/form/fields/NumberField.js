@@ -36,7 +36,7 @@ var NumberField = (function (_FormsyField) {
         key: 'handleChange',
         value: function handleChange(event) {
             this.setState({ value: event.target.value });
-            this.props.onChange(event.target.value);
+            this.props.onChange(event.target.value, event);
         }
     }, {
         key: 'render',

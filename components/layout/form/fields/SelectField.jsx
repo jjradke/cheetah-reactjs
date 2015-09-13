@@ -35,7 +35,11 @@ class SelectField extends FormsyField {
             this.state.value = value;
         }
         this.setValue(this.state.value);
-        this.props.onChange(this.state.value);
+        this.props.onChange(this.state.value, {
+            target: {
+                name: this.props.name
+            }
+        });
     };
 
     getLabel(item) {

@@ -36,6 +36,7 @@ class CreditCardField extends FormsyField {
     componentDidMount() {
         this.setCardNumber({
             target: {
+                name: this.props.name,
                 value: this.props.value
             },
             manual: true
@@ -74,7 +75,7 @@ class CreditCardField extends FormsyField {
         }
 
         if (this.props.onCardChange) {
-            this.props.onCardChange(e);
+            this.props.onCardChange(targetVal, e);
         }
 
         if (!e.manual) {

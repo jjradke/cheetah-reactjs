@@ -34,14 +34,14 @@ var EmailField = (function (_FormsyField) {
                     if (_this.props.match === targetVal) {
                         _this.setState({ email: targetVal, message: '' });
 
-                        _this.props.handleChange(e);
+                        _this.props.handleChange(targetVal, e);
                     } else {
                         _this.setState({ message: 'Must match Email field' });
                     }
                 } else {
                     _this.setState({ email: targetVal, message: '' });
 
-                    _this.props.handleChange(e);
+                    _this.props.handleChange(targetVal, e);
                 }
             } else {
                 _this.setState({ message: 'Invalid' });
@@ -54,7 +54,7 @@ var EmailField = (function (_FormsyField) {
 
             _this.setState({ email: targetVal });
 
-            _this.props.handleChange(e);
+            _this.props.handleChange(targetVal);
         };
 
         this.state = {
