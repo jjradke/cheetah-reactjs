@@ -6,17 +6,11 @@ import Session from './Session';
 import FacebookManager from './FacebookManager';
 import LinkedinManager from './LinkedinManager';
 import AuthService from './AuthService';
-import lscache from 'lscache';
 import cookie from 'react-cookie';
 
 class AuthManagerApi {
     constructor() {
-        this.login = this.login.bind(this);
-        this.register = this.register.bind(this);
 
-        if (lscache.get('session') != null) {
-            this.createSession(lscache.get('session'));
-        }
     }
 
     getUserId() {
@@ -27,7 +21,7 @@ class AuthManagerApi {
         return Session.name;
     }
 
-    register(userInformation) {
+    register = (userInformation) => {
         return Rx.Observable.create((observer) => {
            AuthService.register(userInformation).subscribe((response) => {
                observer.onNext(response);
@@ -36,7 +30,7 @@ class AuthManagerApi {
                observer.onError(errorResponse);
            });
         });
-    }
+    };
 
     confirm(data) {
         return Rx.Observable.create((observer) => {
@@ -49,13 +43,12 @@ class AuthManagerApi {
         });
     }
 
-    login(credentials) {
+    login = (credentials) => {
         if (!!credentials.provider) {
            if (credentials.provider == 'facebook') {
                return Rx.Observable.create((observer) => {
                    FacebookManager.login().subscribe((facebookResponse) => {
                        AuthService.externalLogin(facebookResponse).subscribe((apiResponse) => {
-                           console.log(apiResponse);
                            this.createSession(apiResponse);
                            observer.onNext(apiResponse);
                            observer.onCompleted();
@@ -84,14 +77,12 @@ class AuthManagerApi {
                 });
             });
         }
-    }
+    };
 
     logout(clientOnly) {
        return Rx.Observable.create((observer) => {
            if (!clientOnly) {
                AuthService.logout().subscribe((response) => {
-                   lscache.remove('session');
-                   this.clearHeaders();
                    Session.destroy();
                    observer.onNext(response);
                    observer.onCompleted();
@@ -100,8 +91,6 @@ class AuthManagerApi {
                    if (errorResponse.status == 401
                             || errorResponse.status == 403
                             || errorResponse.status == 0) {
-                       lscache.remove('session');
-                       this.clearHeaders();
                        Session.destroy();
                        observer.onNext(null);
                        observer.onCompleted();
@@ -110,8 +99,6 @@ class AuthManagerApi {
                    }
                });
            } else {
-               lscache.remove('session');
-               this.clearHeaders();
                Session.destroy();
                observer.onNext(null);
                observer.onCompleted();
@@ -159,30 +146,7 @@ class AuthManagerApi {
             name: authResponse.name
         };
 
-        lscache.set('session', session);
-        this.registerHeaders(session.token, session.id);
         Session.create(session);
-    }
-
-    registerHeaders(token, id) {
-        /*$.ajaxSetup({
-            headers: {
-                'ecommerce-security-token': token,
-                'ecommerce-security-user': id
-            }
-        });*/
-
-        $.ajaxSetup({
-            xhrFields: {
-                withCredentials: true
-            }
-        });
-    }
-
-    clearHeaders() {
-        $.ajaxSetup({
-            headers: { }
-        });
     }
 }
 

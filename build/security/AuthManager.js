@@ -30,39 +30,17 @@ var _AuthService = require('./AuthService');
 
 var _AuthService2 = _interopRequireDefault(_AuthService);
 
-var _lscache = require('lscache');
-
-var _lscache2 = _interopRequireDefault(_lscache);
-
 var _reactCookie = require('react-cookie');
 
 var _reactCookie2 = _interopRequireDefault(_reactCookie);
 
 var AuthManagerApi = (function () {
     function AuthManagerApi() {
+        var _this = this;
+
         _classCallCheck(this, AuthManagerApi);
 
-        this.login = this.login.bind(this);
-        this.register = this.register.bind(this);
-
-        if (_lscache2['default'].get('session') != null) {
-            this.createSession(_lscache2['default'].get('session'));
-        }
-    }
-
-    _createClass(AuthManagerApi, [{
-        key: 'getUserId',
-        value: function getUserId() {
-            return _Session2['default'].id;
-        }
-    }, {
-        key: 'getName',
-        value: function getName() {
-            return _Session2['default'].name;
-        }
-    }, {
-        key: 'register',
-        value: function register(userInformation) {
+        this.register = function (userInformation) {
             return _rx2['default'].Observable.create(function (observer) {
                 _AuthService2['default'].register(userInformation).subscribe(function (response) {
                     observer.onNext(response);
@@ -71,30 +49,14 @@ var AuthManagerApi = (function () {
                     observer.onError(errorResponse);
                 });
             });
-        }
-    }, {
-        key: 'confirm',
-        value: function confirm(data) {
-            return _rx2['default'].Observable.create(function (observer) {
-                _AuthService2['default'].confirm(data).subscribe(function (response) {
-                    observer.onNext(response);
-                    observer.onCompleted();
-                }, function (errorResponse) {
-                    observer.onError(errorResponse);
-                });
-            });
-        }
-    }, {
-        key: 'login',
-        value: function login(credentials) {
-            var _this = this;
+        };
 
+        this.login = function (credentials) {
             if (!!credentials.provider) {
                 if (credentials.provider == 'facebook') {
                     return _rx2['default'].Observable.create(function (observer) {
                         _FacebookManager2['default'].login().subscribe(function (facebookResponse) {
                             _AuthService2['default'].externalLogin(facebookResponse).subscribe(function (apiResponse) {
-                                console.log(apiResponse);
                                 _this.createSession(apiResponse);
                                 observer.onNext(apiResponse);
                                 observer.onCompleted();
@@ -123,25 +85,43 @@ var AuthManagerApi = (function () {
                     });
                 });
             }
+        };
+    }
+
+    _createClass(AuthManagerApi, [{
+        key: 'getUserId',
+        value: function getUserId() {
+            return _Session2['default'].id;
+        }
+    }, {
+        key: 'getName',
+        value: function getName() {
+            return _Session2['default'].name;
+        }
+    }, {
+        key: 'confirm',
+        value: function confirm(data) {
+            return _rx2['default'].Observable.create(function (observer) {
+                _AuthService2['default'].confirm(data).subscribe(function (response) {
+                    observer.onNext(response);
+                    observer.onCompleted();
+                }, function (errorResponse) {
+                    observer.onError(errorResponse);
+                });
+            });
         }
     }, {
         key: 'logout',
         value: function logout(clientOnly) {
-            var _this2 = this;
-
             return _rx2['default'].Observable.create(function (observer) {
                 if (!clientOnly) {
                     _AuthService2['default'].logout().subscribe(function (response) {
-                        _lscache2['default'].remove('session');
-                        _this2.clearHeaders();
                         _Session2['default'].destroy();
                         observer.onNext(response);
                         observer.onCompleted();
                     }, function (errorResponse) {
                         console.log(errorResponse);
                         if (errorResponse.status == 401 || errorResponse.status == 403 || errorResponse.status == 0) {
-                            _lscache2['default'].remove('session');
-                            _this2.clearHeaders();
                             _Session2['default'].destroy();
                             observer.onNext(null);
                             observer.onCompleted();
@@ -150,8 +130,6 @@ var AuthManagerApi = (function () {
                         }
                     });
                 } else {
-                    _lscache2['default'].remove('session');
-                    _this2.clearHeaders();
                     _Session2['default'].destroy();
                     observer.onNext(null);
                     observer.onCompleted();
@@ -204,32 +182,7 @@ var AuthManagerApi = (function () {
                 name: authResponse.name
             };
 
-            _lscache2['default'].set('session', session);
-            this.registerHeaders(session.token, session.id);
             _Session2['default'].create(session);
-        }
-    }, {
-        key: 'registerHeaders',
-        value: function registerHeaders(token, id) {
-            /*$.ajaxSetup({
-                headers: {
-                    'ecommerce-security-token': token,
-                    'ecommerce-security-user': id
-                }
-            });*/
-
-            $.ajaxSetup({
-                xhrFields: {
-                    withCredentials: true
-                }
-            });
-        }
-    }, {
-        key: 'clearHeaders',
-        value: function clearHeaders() {
-            $.ajaxSetup({
-                headers: {}
-            });
         }
     }]);
 

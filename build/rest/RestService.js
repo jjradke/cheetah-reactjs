@@ -18,10 +18,6 @@ var _configApplicationConfig = require('../config/ApplicationConfig');
 
 var _configApplicationConfig2 = _interopRequireDefault(_configApplicationConfig);
 
-var _securityAuthManager = require('../security/AuthManager');
-
-var _securityAuthManager2 = _interopRequireDefault(_securityAuthManager);
-
 var RestServiceApi = (function () {
   function RestServiceApi() {
     _classCallCheck(this, RestServiceApi);

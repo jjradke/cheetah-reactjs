@@ -29,7 +29,6 @@ class ModalDialog extends React.Component {
     };
 
     open = () => {
-        console.log('opening...');
         this.setState({ open: true });
         window.onwheel = this.preventDefault;
         window.onmousewheel = this.preventDefault;

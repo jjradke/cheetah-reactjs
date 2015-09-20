@@ -36,7 +36,6 @@ var ModalDialog = (function (_React$Component) {
         };
 
         this.open = function () {
-            console.log('opening...');
             _this.setState({ open: true });
             window.onwheel = _this.preventDefault;
             window.onmousewheel = _this.preventDefault;

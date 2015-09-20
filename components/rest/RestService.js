@@ -3,7 +3,6 @@
 import Rx from 'rx';
 import $ from 'jquery';
 import ApplicationConfig from '../config/ApplicationConfig';
-import AuthManager from '../security/AuthManager';
 
 class RestServiceApi {
   constructor() {
