@@ -15,6 +15,7 @@ module.exports = {
     AmountFormatter: require('./format/AmountFormatter'),
     BooleanFormatter: require('./format/BooleanFormatter'),
     DateFormatter: require('./format/DateFormatter'),
+    CreditCardFormatter: require('./format/CreditCardFormatter'),
     FormatterFactory: require('./format/FormatterFactory'),
     ApplicationBody: require('./layout/ApplicationBody'),
     ApplicationFooter: require('./layout/ApplicationFooter'),

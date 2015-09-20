@@ -10,7 +10,15 @@ import cookie from 'react-cookie';
 
 class AuthManagerApi {
     constructor() {
+        this.bootstrapped = false;
+    }
 
+    setBootstrapped(bootstrapped) {
+        this.bootstrapped = bootstrapped;
+    }
+
+    isBootstrapped() {
+        return this.bootstrapped;
     }
 
     getUserId() {
