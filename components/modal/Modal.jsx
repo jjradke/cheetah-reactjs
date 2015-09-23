@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import classNames from "classnames";
 
 class ModalDialog extends React.Component {
@@ -21,6 +21,16 @@ class ModalDialog extends React.Component {
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.open != this.props.open) {
+            if (nextProps.open) {
+                this.open();
+            } else {
+                this.close();
+            }
+        }
+    }
+
     preventDefault = (e) => {
         e.stopPropagation();
         e.preventDefault();
@@ -29,6 +39,10 @@ class ModalDialog extends React.Component {
     };
 
     open = () => {
+        if (this.props.onOpen) {
+            this.props.onOpen();
+        }
+
         this.setState({ open: true });
         window.onwheel = this.preventDefault;
         window.onmousewheel = this.preventDefault;
@@ -42,6 +56,10 @@ class ModalDialog extends React.Component {
     };
 
      close = () => {
+        if (this.props.onClose) {
+         this.props.onClose();
+        }
+
         this.setState({ open: false });
         window.onwheel = null;
         window.onmousewheel = null;
@@ -49,14 +67,6 @@ class ModalDialog extends React.Component {
         $('body').unbind('touchmove');
         document.onkeydown = null;
         return false;
-    };
-
-    getContent = () => {
-      // empty - should be overridden
-    };
-
-    getStyle = () => {
-        // empty - should be overridden
     };
 
     render() {
@@ -68,13 +78,13 @@ class ModalDialog extends React.Component {
                 animation={false}
                 bsSize={this.props.size}>
                 <Modal.Body>
-                    <div style={this.getStyle()}>
+                    <div style={this.props.containerStyle}>
                         <div className="col-xs-12">
                             <i style={this.styles.closeButton} className={classNames("fa", "fa-times-thin")}
                                onClick={this.close}></i>
                         </div>
 
-                        {this.getContent()}
+                        {this.props.children}
                     </div>
                 </Modal.Body>
             </Modal>

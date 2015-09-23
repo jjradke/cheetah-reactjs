@@ -86,21 +86,9 @@ var AuthManagerApi = (function () {
                 });
             }
         };
-
-        this.bootstrapped = false;
     }
 
     _createClass(AuthManagerApi, [{
-        key: 'setBootstrapped',
-        value: function setBootstrapped(bootstrapped) {
-            this.bootstrapped = bootstrapped;
-        }
-    }, {
-        key: 'isBootstrapped',
-        value: function isBootstrapped() {
-            return this.bootstrapped;
-        }
-    }, {
         key: 'getUserId',
         value: function getUserId() {
             return _Session2['default'].id;

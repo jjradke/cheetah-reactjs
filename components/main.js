@@ -42,7 +42,8 @@ module.exports = {
     CardExpirationYearProvider: require('./providers/CardExpirationYearProvider'),
     CardTypeProvider: require('./providers/CardTypeProvider'),
     StripeUtils: require('./security/StripeUtils'),
-    ModalDialog: require('./modal/ModalDialog'),
+    Modal: require('./modal/Modal'),
+    Menu: require('./modal/Menu'),
 
     /** form fields **/
     Form: require('./layout/form/Form'),
