@@ -1,14 +1,6 @@
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
@@ -16,34 +8,44 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
 
-var _restRestService = require('./../rest/RestService');
+var _RestService = require('./../rest/RestService');
 
-var _restRestService2 = _interopRequireDefault(_restRestService);
+var _RestService2 = _interopRequireDefault(_RestService);
 
-var _restDataStore = require('./../rest/DataStore');
+var _DataStore = require('./../rest/DataStore');
 
-var _restDataStore2 = _interopRequireDefault(_restDataStore);
+var _DataStore2 = _interopRequireDefault(_DataStore);
 
-var _layoutTable = require('../layout/Table');
+var _Table = require('../layout/Table');
 
-var _layoutTable2 = _interopRequireDefault(_layoutTable);
+var _Table2 = _interopRequireDefault(_Table);
 
-var _layoutExternalTableContainer = require('../layout/ExternalTableContainer');
+var _ExternalTableContainer = require('../layout/ExternalTableContainer');
 
-var _layoutExternalTableContainer2 = _interopRequireDefault(_layoutExternalTableContainer);
+var _ExternalTableContainer2 = _interopRequireDefault(_ExternalTableContainer);
 
-var SearchResults = (function (_React$Component) {
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SearchResults = function (_React$Component) {
+    _inherits(SearchResults, _React$Component);
+
     function SearchResults(props) {
         _classCallCheck(this, SearchResults);
 
-        _get(Object.getPrototypeOf(SearchResults.prototype), 'constructor', this).call(this, props);
-        this.state = { data: { item: {} } };
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SearchResults).call(this, props));
 
-        this.generateViewLink = this.generateViewLink.bind(this);
-        this.viewDetail = this.viewDetail.bind(this);
+        _this.state = { data: { item: {} } };
+
+        _this.generateViewLink = _this.generateViewLink.bind(_this);
+        _this.viewDetail = _this.viewDetail.bind(_this);
+        return _this;
     }
-
-    _inherits(SearchResults, _React$Component);
 
     _createClass(SearchResults, [{
         key: 'componentDidMount',
@@ -68,13 +70,13 @@ var SearchResults = (function (_React$Component) {
     }, {
         key: 'viewDetail',
         value: function viewDetail(sku, index) {
-            _restDataStore2['default'].addIndex(this.props.resourceName, index);
+            _DataStore2.default.addIndex(this.props.resourceName, index);
             this.context.router.transitionTo(this.getRouteName(this.props.resourceName), { id: encodeURIComponent(sku) });
         }
     }, {
         key: 'generateViewLink',
         value: function generateViewLink(item, i) {
-            return _react2['default'].createElement(
+            return _react2.default.createElement(
                 'a',
                 { onClick: this.viewDetail.bind(this, item[this.props.idField ? this.props.idField : 'Id'], i) },
                 'View'
@@ -84,27 +86,27 @@ var SearchResults = (function (_React$Component) {
         key: 'render',
         value: function render() {
             var generators = [{
-                name: 'View',
+                name: "View",
                 func: this.generateViewLink
             }];
 
             this.props.columns.push({
-                name: 'View'
+                name: "View"
             });
 
-            var tableContainer = _react2['default'].createElement(_layoutExternalTableContainer2['default'], { url: this.props.resourceName, columns: this.props.columns,
+            var tableContainer = _react2.default.createElement(_ExternalTableContainer2.default, { url: this.props.resourceName, columns: this.props.columns,
                 generators: generators, total: this.props.total,
                 data: this.state.data });
             var content = [];
             if (this.props.data.length > 0) {
-                content.push(_react2['default'].createElement(
+                content.push(_react2.default.createElement(
                     'p',
                     null,
                     'Results'
                 ));
                 content.push(tableContainer);
             }
-            return _react2['default'].createElement(
+            return _react2.default.createElement(
                 'div',
                 null,
                 content
@@ -113,10 +115,10 @@ var SearchResults = (function (_React$Component) {
     }]);
 
     return SearchResults;
-})(_react2['default'].Component);
+}(_react2.default.Component);
 
 SearchResults.contextTypes = {
-    router: _react2['default'].PropTypes.func
+    router: _react2.default.PropTypes.func
 };
 
 module.exports = SearchResults;

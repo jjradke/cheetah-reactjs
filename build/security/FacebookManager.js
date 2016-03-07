@@ -1,16 +1,16 @@
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _rx = require('rx');
 
 var _rx2 = _interopRequireDefault(_rx);
 
-var FacebookManagerApi = (function () {
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var FacebookManagerApi = function () {
     function FacebookManagerApi() {
         _classCallCheck(this, FacebookManagerApi);
 
@@ -23,7 +23,7 @@ var FacebookManagerApi = (function () {
         value: function isAuthenticated() {
             var _this = this;
 
-            return _rx2['default'].Observable.create(function (observer) {
+            return _rx2.default.Observable.create(function (observer) {
                 if (_this.status != null) {
                     observer.onNext(_this.status);
                     observer.onCompleted();
@@ -41,7 +41,7 @@ var FacebookManagerApi = (function () {
         value: function login() {
             var _this2 = this;
 
-            return _rx2['default'].Observable.create(function (observer) {
+            return _rx2.default.Observable.create(function (observer) {
                 FB.login(function (facebookLoginResponse) {
                     FB.api('/me', function (facebookApiResponse) {
                         var response = {
@@ -62,7 +62,7 @@ var FacebookManagerApi = (function () {
     }]);
 
     return FacebookManagerApi;
-})();
+}();
 
 var FacebookManager = new FacebookManagerApi();
 

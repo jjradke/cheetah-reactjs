@@ -1,8 +1,8 @@
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var defaultFormat = /(\d{1,4})/g;
 
@@ -84,7 +84,7 @@ var cards = [{
     icon: 'images/credit-cards/visa.png'
 }];
 
-var CreditCardResolverApi = (function () {
+var CreditCardResolverApi = function () {
     function CreditCardResolverApi() {
         _classCallCheck(this, CreditCardResolverApi);
     }
@@ -92,7 +92,7 @@ var CreditCardResolverApi = (function () {
     _createClass(CreditCardResolverApi, [{
         key: 'resolve',
         value: function resolve(cardNumber) {
-            cardNumber = (cardNumber + '').replace(/D/g, '');
+            cardNumber = (cardNumber + "").replace(/D/g, "");
             for (var i = 0; i < cards.length; i++) {
                 var n = cards[i];
                 if (n.pattern.test(cardNumber)) return n;
@@ -108,7 +108,7 @@ var CreditCardResolverApi = (function () {
     }]);
 
     return CreditCardResolverApi;
-})();
+}();
 
 var CreditCardResolver = new CreditCardResolverApi();
 

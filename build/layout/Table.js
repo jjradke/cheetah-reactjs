@@ -1,14 +1,6 @@
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
@@ -18,36 +10,45 @@ var _griddleReact = require('griddle-react');
 
 var _griddleReact2 = _interopRequireDefault(_griddleReact);
 
-var _formatFormatterFactory = require('../format/FormatterFactory');
+var _FormatterFactory = require('../format/FormatterFactory');
 
-var _formatFormatterFactory2 = _interopRequireDefault(_formatFormatterFactory);
+var _FormatterFactory2 = _interopRequireDefault(_FormatterFactory);
 
-var _formatDateFormatter = require('../format/DateFormatter');
+var _DateFormatter = require('../format/DateFormatter');
 
-var _formatDateFormatter2 = _interopRequireDefault(_formatDateFormatter);
+var _DateFormatter2 = _interopRequireDefault(_DateFormatter);
 
-var _formatAmountFormatter = require('../format/AmountFormatter');
+var _AmountFormatter = require('../format/AmountFormatter');
 
-var _formatAmountFormatter2 = _interopRequireDefault(_formatAmountFormatter);
+var _AmountFormatter2 = _interopRequireDefault(_AmountFormatter);
 
-var _formatBooleanFormatter = require('../format/BooleanFormatter');
+var _BooleanFormatter = require('../format/BooleanFormatter');
 
-var _formatBooleanFormatter2 = _interopRequireDefault(_formatBooleanFormatter);
+var _BooleanFormatter2 = _interopRequireDefault(_BooleanFormatter);
 
 var _underscore = require('underscore');
 
 var _underscore2 = _interopRequireDefault(_underscore);
 
-var Table = (function (_React$Component) {
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Table = function (_React$Component) {
+    _inherits(Table, _React$Component);
+
     function Table(props) {
         _classCallCheck(this, Table);
 
-        _get(Object.getPrototypeOf(Table.prototype), 'constructor', this).call(this, props);
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Table).call(this, props));
 
-        this.state = props;
+        _this.state = props;
+        return _this;
     }
-
-    _inherits(Table, _React$Component);
 
     _createClass(Table, [{
         key: 'componentWillReceiveProps',
@@ -58,14 +59,14 @@ var Table = (function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this = this;
+            var _this2 = this;
 
             // get latest value from parent on each render
             this.state.value = this.props.value;
             var columnMetadata = [],
                 columns = [];
 
-            var data = _underscore2['default'].map(this.state.data, _underscore2['default'].clone);
+            var data = _underscore2.default.map(this.state.data, _underscore2.default.clone);
 
             this.state.columns.forEach(function (item) {
                 console.log(item);
@@ -73,8 +74,8 @@ var Table = (function (_React$Component) {
                     columnName: item.name
                 };
 
-                if (item.name.split('.').length > 1) {
-                    var itemSplit = item.name.split('.');
+                if (item.name.split("\.").length > 1) {
+                    var itemSplit = item.name.split("\.");
                     data.forEach(function (dataItem) {
                         var temp = dataItem[itemSplit[0]];
 
@@ -93,15 +94,15 @@ var Table = (function (_React$Component) {
                 }
 
                 if (item.type) {
-                    var formatter = _formatFormatterFactory2['default'].get(item.type);
+                    var formatter = _FormatterFactory2.default.get(item.type);
 
                     data.forEach(function (row) {
                         row[item.name] = formatter.format(row[item.name]);
                     });
                 }
 
-                if (_this.props.generators != null) {
-                    _this.props.generators.forEach(function (generator) {
+                if (_this2.props.generators != null) {
+                    _this2.props.generators.forEach(function (generator) {
                         data.forEach(function (data, i) {
                             data[generator.name] = generator.func.call(null, data, i);
                         });
@@ -111,13 +112,13 @@ var Table = (function (_React$Component) {
                 columnMetadata.push(metadata);
                 columns.push(item.name);
             });
-            return _react2['default'].createElement(_griddleReact2['default'], { results: data, tableClassName: 'table', showFilter: true,
+            return _react2.default.createElement(_griddleReact2.default, { results: data, tableClassName: 'table', showFilter: true,
                 resultsPerPage: this.props.rowsPerPage ? this.props.rowsPerPage : 10,
                 showSettings: false, columns: columns, columnMetadata: columnMetadata });
         }
     }]);
 
     return Table;
-})(_react2['default'].Component);
+}(_react2.default.Component);
 
 module.exports = Table;

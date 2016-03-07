@@ -1,34 +1,26 @@
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _layoutFormFieldsTextField = require('../layout/form/fields/TextField');
+var _TextField = require('../layout/form/fields/TextField');
 
-var _layoutFormFieldsTextField2 = _interopRequireDefault(_layoutFormFieldsTextField);
+var _TextField2 = _interopRequireDefault(_TextField);
 
-var _layoutFormFieldsCheckboxField = require('../layout/form/fields/CheckboxField');
+var _CheckboxField = require('../layout/form/fields/CheckboxField');
 
-var _layoutFormFieldsCheckboxField2 = _interopRequireDefault(_layoutFormFieldsCheckboxField);
+var _CheckboxField2 = _interopRequireDefault(_CheckboxField);
 
-var _layoutFormFieldsSelectField = require('../layout/form/fields/SelectField');
+var _SelectField = require('../layout/form/fields/SelectField');
 
-var _layoutFormFieldsSelectField2 = _interopRequireDefault(_layoutFormFieldsSelectField);
+var _SelectField2 = _interopRequireDefault(_SelectField);
 
-var _layoutFormFieldsNumberField = require('../layout/form/fields/NumberField');
+var _NumberField = require('../layout/form/fields/NumberField');
 
-var _layoutFormFieldsNumberField2 = _interopRequireDefault(_layoutFormFieldsNumberField);
+var _NumberField2 = _interopRequireDefault(_NumberField);
 
 var _reactDatepicker = require('react-datepicker');
 
@@ -38,28 +30,37 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 var labelStyle = {
     paddingRight: '5px'
 };
 
-var DetailField = (function (_React$Component) {
+var DetailField = function (_React$Component) {
+    _inherits(DetailField, _React$Component);
+
     function DetailField(props) {
         _classCallCheck(this, DetailField);
 
-        _get(Object.getPrototypeOf(DetailField.prototype), 'constructor', this).call(this, props);
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(DetailField).call(this, props));
 
-        this.state = props;
-        this.hasInitialValue = false;
-        this.initialValue = null;
+        _this.state = props;
+        _this.hasInitialValue = false;
+        _this.initialValue = null;
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleDateChange = this.handleDateChange.bind(this);
-        this.removeItem = this.removeItem.bind(this);
-        this.handleDropdownChange = this.handleDropdownChange.bind(this);
-        this.prepareValue = this.prepareValue.bind(this);
+        _this.handleChange = _this.handleChange.bind(_this);
+        _this.handleDateChange = _this.handleDateChange.bind(_this);
+        _this.removeItem = _this.removeItem.bind(_this);
+        _this.handleDropdownChange = _this.handleDropdownChange.bind(_this);
+        _this.prepareValue = _this.prepareValue.bind(_this);
+        return _this;
     }
-
-    _inherits(DetailField, _React$Component);
 
     _createClass(DetailField, [{
         key: 'componentWillReceiveProps',
@@ -119,11 +120,11 @@ var DetailField = (function (_React$Component) {
     }, {
         key: 'handleDropdownChange',
         value: function handleDropdownChange(field, isSelected) {
-            var _this = this;
+            var _this2 = this;
 
             if (isSelected) {
                 this.state.value = this.props.options.filter(function (innerField) {
-                    return innerField.Id == field.val() || _this.state.value.map(function (f) {
+                    return innerField.Id == field.val() || _this2.state.value.map(function (f) {
                         return f.Id;
                     }).indexOf(innerField.Id) > -1;
                 });
@@ -148,24 +149,24 @@ var DetailField = (function (_React$Component) {
             }
 
             if (this.state.value != null) {
-                this.state.moment = (0, _moment2['default'])(this.state.value);
+                this.state.moment = (0, _moment2.default)(this.state.value);
             }
 
             if (this.props.hide) {
-                return _react2['default'].createElement('span', null);
+                return _react2.default.createElement('span', null);
             }
             var field;
             if (this.props.type == 'text') {
-                field = _react2['default'].createElement(_layoutFormFieldsTextField2['default'], { field: this.state.field, value: this.state.value, onChange: this.handleChange });
+                field = _react2.default.createElement(_TextField2.default, { field: this.state.field, value: this.state.value, onChange: this.handleChange });
             } else if (this.props.type == 'checkbox') {
-                field = _react2['default'].createElement(_layoutFormFieldsCheckboxField2['default'], { field: this.state.field, value: this.state.value, onChange: this.handleChange });
+                field = _react2.default.createElement(_CheckboxField2.default, { field: this.state.field, value: this.state.value, onChange: this.handleChange });
             } else if (this.props.type == 'list') {
-                field = _react2['default'].createElement(_layoutFormFieldsSelectField2['default'], { value: this.state.value, options: this.props.options, multiple: this.props.multiple, onChange: this.handleChange });
+                field = _react2.default.createElement(_SelectField2.default, { value: this.state.value, options: this.props.options, multiple: this.props.multiple, onChange: this.handleChange });
             } else if (this.props.type == 'number') {
-                field = _react2['default'].createElement(_layoutFormFieldsNumberField2['default'], { field: this.state.field, value: this.state.value, max: this.props.max,
+                field = _react2.default.createElement(_NumberField2.default, { field: this.state.field, value: this.state.value, max: this.props.max,
                     min: this.props.min, onChange: this.handleChange });
             } else if (this.props.type == 'date') {
-                field = _react2['default'].createElement(_reactDatepicker2['default'], {
+                field = _react2.default.createElement(_reactDatepicker2.default, {
                     key: this.state.field,
                     selected: this.state.moment,
                     onChange: this.handleDateChange,
@@ -173,10 +174,10 @@ var DetailField = (function (_React$Component) {
                 });
             }
 
-            return _react2['default'].createElement(
+            return _react2.default.createElement(
                 'div',
                 { className: 'form-group' },
-                _react2['default'].createElement(
+                _react2.default.createElement(
                     'label',
                     { htmlFor: this.state.field, className: 'control-label', style: labelStyle },
                     this.props.children
@@ -187,6 +188,6 @@ var DetailField = (function (_React$Component) {
     }]);
 
     return DetailField;
-})(_react2['default'].Component);
+}(_react2.default.Component);
 
 module.exports = DetailField;

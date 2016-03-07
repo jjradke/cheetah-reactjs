@@ -4,7 +4,6 @@ import React from 'react';
 import { Redirect, Router } from 'react-router';
 import DataStore from '../rest/DataStore';
 import RestService from '../rest/RestService';
-import { Component, Mixins } from 'react-class-helper';
 
 class DetailHeader extends React.Component {
     constructor(props) {
