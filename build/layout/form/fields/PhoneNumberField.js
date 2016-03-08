@@ -2,36 +2,36 @@
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _FormsyField2 = require('./FormsyField');
 
 var _FormsyField3 = _interopRequireDefault(_FormsyField2);
 
-var PhoneNumberField = (function (_FormsyField) {
-    function PhoneNumberField(props) {
-        var _this = this;
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PhoneNumberField = function (_FormsyField) {
+    _inherits(PhoneNumberField, _FormsyField);
+
+    function PhoneNumberField(props) {
         _classCallCheck(this, PhoneNumberField);
 
-        _get(Object.getPrototypeOf(PhoneNumberField.prototype), 'constructor', this).call(this, props);
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PhoneNumberField).call(this, props));
 
-        this.handleKeyUp = function (e) {
+        _this.handleKeyUp = function (e) {
             _this.state.wasBackspace = e.which === 8; // used to display the state properly
             // if user backspaces on something, we may
             // need to hide one of the format characters
             // as well
         };
 
-        this.formatNumber = function (number) {
+        _this.formatNumber = function (number) {
             if (number == null) {
                 return '';
             }
@@ -51,7 +51,7 @@ var PhoneNumberField = (function (_FormsyField) {
             return targetValNoSpecialChars.replace(/(\d{1,3})(\d{1,3})?(\d{1,4})?/, outputFormat);
         };
 
-        this.setPhoneNumber = function (e) {
+        _this.setPhoneNumber = function (e) {
             e.target.value = _this.formatNumber(e.target.value);
 
             if (_this.props.onChange) {
@@ -61,7 +61,7 @@ var PhoneNumberField = (function (_FormsyField) {
             _this.setState({ phoneNumber: e.target.value, wasBackspace: false });
         };
 
-        this.handleNumberInput = function (e) {
+        _this.handleNumberInput = function (e) {
             var target = e.currentTarget,
                 targetVal = target.value.replace(/[\(\)\- ]/g, ''),
                 charCode = String.fromCharCode(e.which),
@@ -75,12 +75,11 @@ var PhoneNumberField = (function (_FormsyField) {
             }
         };
 
-        this.state = {
-            phoneNumber: this.formatNumber(props.value)
+        _this.state = {
+            phoneNumber: _this.formatNumber(props.value)
         };
+        return _this;
     }
-
-    _inherits(PhoneNumberField, _FormsyField);
 
     _createClass(PhoneNumberField, [{
         key: 'componentDidMount',
@@ -113,6 +112,6 @@ var PhoneNumberField = (function (_FormsyField) {
     }]);
 
     return PhoneNumberField;
-})(_FormsyField3['default']);
+}(_FormsyField3.default);
 
 module.exports = PhoneNumberField;

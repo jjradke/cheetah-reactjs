@@ -1,14 +1,6 @@
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
@@ -20,22 +12,31 @@ var _classnames = require('classnames');
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var ModalDialog = (function (_React$Component) {
-    function ModalDialog(props) {
-        var _this = this;
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ModalDialog = function (_React$Component) {
+    _inherits(ModalDialog, _React$Component);
+
+    function ModalDialog(props) {
         _classCallCheck(this, ModalDialog);
 
-        _get(Object.getPrototypeOf(ModalDialog.prototype), 'constructor', this).call(this, props);
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ModalDialog).call(this, props));
 
-        this.preventDefault = function (e) {
+        _this.preventDefault = function (e) {
             e.stopPropagation();
             e.preventDefault();
             e.returnValue = false;
             return e.returnValue;
         };
 
-        this.open = function () {
+        _this.open = function () {
+            var keys = { 37: 1, 38: 1, 39: 1, 40: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 1 };
             if (_this.props.onOpen) {
                 _this.props.onOpen();
             }
@@ -56,7 +57,7 @@ var ModalDialog = (function (_React$Component) {
             return false;
         };
 
-        this.close = function () {
+        _this.close = function () {
             if (_this.props.onClose) {
                 _this.props.onClose();
             }
@@ -70,19 +71,18 @@ var ModalDialog = (function (_React$Component) {
             return false;
         };
 
-        this.state = { open: props.open || false };
+        _this.state = { open: props.open || false };
 
-        this.styles = {
+        _this.styles = {
             closeButton: {
-                cursor: 'pointer',
-                fontSize: '32px',
-                fontWeight: 'lighter',
-                float: 'right'
+                cursor: "pointer",
+                fontSize: "32px",
+                fontWeight: "lighter",
+                float: "right"
             }
         };
+        return _this;
     }
-
-    _inherits(ModalDialog, _React$Component);
 
     _createClass(ModalDialog, [{
         key: 'componentWillReceiveProps',
@@ -98,7 +98,7 @@ var ModalDialog = (function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            return _react2['default'].createElement(
+            return _react2.default.createElement(
                 _reactBootstrap.Modal,
                 {
                     dialogClassName: this.props.dialogName,
@@ -106,16 +106,16 @@ var ModalDialog = (function (_React$Component) {
                     onHide: this.close,
                     animation: false,
                     bsSize: this.props.size },
-                _react2['default'].createElement(
+                _react2.default.createElement(
                     _reactBootstrap.Modal.Body,
                     null,
-                    _react2['default'].createElement(
+                    _react2.default.createElement(
                         'div',
                         { style: this.props.containerStyle },
-                        _react2['default'].createElement(
+                        _react2.default.createElement(
                             'div',
                             { className: 'col-xs-12' },
-                            _react2['default'].createElement('i', { style: this.styles.closeButton, className: (0, _classnames2['default'])('fa', 'fa-times-thin'),
+                            _react2.default.createElement('i', { style: this.styles.closeButton, className: (0, _classnames2.default)("fa", "fa-times-thin"),
                                 onClick: this.close })
                         ),
                         this.props.children
@@ -126,6 +126,6 @@ var ModalDialog = (function (_React$Component) {
     }]);
 
     return ModalDialog;
-})(_react2['default'].Component);
+}(_react2.default.Component);
 
 module.exports = ModalDialog;

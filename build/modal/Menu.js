@@ -1,27 +1,27 @@
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
-var Menu = (function (_Component) {
-    function Menu(props) {
-        var _this = this;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Menu = function (_Component) {
+    _inherits(Menu, _Component);
+
+    function Menu(props) {
         _classCallCheck(this, Menu);
 
-        _get(Object.getPrototypeOf(Menu.prototype), 'constructor', this).call(this, props);
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Menu).call(this, props));
 
-        this.show = function () {
+        _this.show = function () {
             var keys = { 37: 1, 38: 1, 39: 1, 40: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 1 };
             _this.setState({ visible: true });
-            document.addEventListener('click', _this.hide);
+            document.addEventListener("click", _this.hide);
             window.onwheel = _this.preventDefault;
             window.onmousewheel = _this.preventDefault;
             window.ontouchmove = _this.preventDefault;
@@ -36,7 +36,7 @@ var Menu = (function (_Component) {
             };
         };
 
-        this.hide = function (e) {
+        _this.hide = function (e) {
             if (e !== undefined) {
                 var target = e.target;
 
@@ -46,7 +46,7 @@ var Menu = (function (_Component) {
             }
 
             _this.setState({ visible: false });
-            document.removeEventListener('click', _this.hide);
+            document.removeEventListener("click", _this.hide);
             window.onwheel = null;
             window.onmousewheel = null;
             window.ontouchmove = null;
@@ -54,10 +54,9 @@ var Menu = (function (_Component) {
             document.onkeydown = null;
         };
 
-        this.state = { visible: false };
+        _this.state = { visible: false };
+        return _this;
     }
-
-    _inherits(Menu, _Component);
 
     _createClass(Menu, [{
         key: 'preventDefault',
@@ -80,7 +79,7 @@ var Menu = (function (_Component) {
                     { className: 'menu' },
                     React.createElement(
                         'div',
-                        { className: (this.state.visible ? 'visible ' : '') + this.props.alignment },
+                        { className: (this.state.visible ? "visible " : "") + this.props.alignment },
                         React.createElement(
                             'div',
                             { style: this.props.containerStyle },
@@ -93,6 +92,6 @@ var Menu = (function (_Component) {
     }]);
 
     return Menu;
-})(_react.Component);
+}(_react.Component);
 
 module.exports = Menu;

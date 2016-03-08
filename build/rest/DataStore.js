@@ -1,18 +1,16 @@
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _RestService = require('./RestService');
 
 var _RestService2 = _interopRequireDefault(_RestService);
 
-var _securityAuthManager = require('../security/AuthManager');
+var _AuthManager = require('../security/AuthManager');
 
-var _securityAuthManager2 = _interopRequireDefault(_securityAuthManager);
+var _AuthManager2 = _interopRequireDefault(_AuthManager);
 
 var _underscore = require('underscore');
 
@@ -22,7 +20,11 @@ var _rx = require('rx');
 
 var _rx2 = _interopRequireDefault(_rx);
 
-var DataStoreApi = (function () {
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var DataStoreApi = function () {
     function DataStoreApi() {
         _classCallCheck(this, DataStoreApi);
 
@@ -51,12 +53,12 @@ var DataStoreApi = (function () {
         value: function get(key, params, isSearch) {
             var _this = this;
 
-            return _rx2['default'].Observable.create(function (observer) {
+            return _rx2.default.Observable.create(function (observer) {
                 if (_this.map[key] != null && !isSearch) {
                     observer.onNext(_this.map[key]);
                     observer.onCompleted();
                 } else {
-                    _RestService2['default'].get(key, params).subscribe(function (result) {
+                    _RestService2.default.get(key, params).subscribe(function (result) {
                         if (result.total && result.total > 0) {
                             _this.totalMap[key] = result.total;
                         }
@@ -66,7 +68,7 @@ var DataStoreApi = (function () {
                         observer.onCompleted();
                     }, function (errorResult) {
                         if (errorResult.status != 500) {
-                            _securityAuthManager2['default'].logout(true).subscribe(function (response) {
+                            _AuthManager2.default.logout(true).subscribe(function (response) {
                                 observer.onError(errorResult);
                             });
                         }
@@ -81,14 +83,14 @@ var DataStoreApi = (function () {
 
             var offset = params._offset,
                 size = params._size;
-            return _rx2['default'].Observable.create(function (observer) {
+            return _rx2.default.Observable.create(function (observer) {
                 if (_this2.map[key] != null && _this2.map[key].length >= offset && _this2.map[key][offset] != null) {
                     observer.onNext(_this2.map[key].filter(function (item, index) {
                         return index >= offset && index < offset + size;
                     }));
                     observer.onCompleted();
                 } else {
-                    _RestService2['default'].get(key, params).subscribe(function (result) {
+                    _RestService2.default.get(key, params).subscribe(function (result) {
                         if (result.total && result.total > 0) {
                             _this2.totalMap[key] = result.total;
                         }
@@ -122,7 +124,7 @@ var DataStoreApi = (function () {
                         observer.onCompleted();
                     }, function (errorResult) {
                         if (errorResult.status != 500) {
-                            _securityAuthManager2['default'].logout(true).subscribe(function (response) {
+                            _AuthManager2.default.logout(true).subscribe(function (response) {
                                 observer.onError(errorResult);
                             });
                         }
@@ -135,20 +137,20 @@ var DataStoreApi = (function () {
         value: function getById(key, id) {
             var _this3 = this;
 
-            return _rx2['default'].Observable.create(function (observer) {
+            return _rx2.default.Observable.create(function (observer) {
                 var result = _this3.map[key] != null ? _this3.map[key].filter(function (item) {
                     if (typeof id === 'string' || typeof id === 'number') {
                         return item.Id == id;
-                    } else if (typeof id === 'object') {
+                    } else if ((typeof id === 'undefined' ? 'undefined' : _typeof(id)) === 'object') {
                         return item[id.Key] == id.Value;
                     }
                     return null;
                 }) : [];
                 if (result.length == 0) {
-                    if (typeof id === 'object') {
+                    if ((typeof id === 'undefined' ? 'undefined' : _typeof(id)) === 'object') {
                         id = id.Value;
                     }
-                    _RestService2['default'].find(key, id).subscribe(function (result) {
+                    _RestService2.default.find(key, id).subscribe(function (result) {
                         observer.onNext(result);
                         observer.onCompleted();
                     }, function (errorResult) {
@@ -167,7 +169,7 @@ var DataStoreApi = (function () {
 
             var index = this.indexMap[key];
 
-            return _rx2['default'].Observable.create(function (observer) {
+            return _rx2.default.Observable.create(function (observer) {
                 if (_this4.map[key] != null && _this4.map[key].length > index) {
                     console.log('retrieved from cache!');
                     observer.onNext(_this4.map[key][_this4.indexMap[key]]);
@@ -229,7 +231,7 @@ var DataStoreApi = (function () {
     }]);
 
     return DataStoreApi;
-})();
+}();
 
 var DataStore = new DataStoreApi();
 

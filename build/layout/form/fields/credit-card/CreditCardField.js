@@ -2,15 +2,7 @@
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _FormsyField2 = require('../FormsyField');
 
@@ -20,18 +12,26 @@ var _CreditCardResolver = require('./CreditCardResolver');
 
 var _CreditCardResolver2 = _interopRequireDefault(_CreditCardResolver);
 
-var CreditCardField = (function (_FormsyField) {
-    function CreditCardField(props) {
-        var _this = this;
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CreditCardField = function (_FormsyField) {
+    _inherits(CreditCardField, _FormsyField);
+
+    function CreditCardField(props) {
         _classCallCheck(this, CreditCardField);
 
-        _get(Object.getPrototypeOf(CreditCardField.prototype), 'constructor', this).call(this, props);
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(CreditCardField).call(this, props));
 
-        this.setCardNumber = function (e) {
+        _this.setCardNumber = function (e) {
             var targetVal = e.target.value;
 
-            var card = _CreditCardResolver2['default'].resolve(targetVal);
+            var card = _CreditCardResolver2.default.resolve(targetVal);
 
             if (card == null) {
                 _this.setState({ cardType: null, icon: null });
@@ -49,12 +49,12 @@ var CreditCardField = (function (_FormsyField) {
             _this.setState({ cardNumber: targetVal });
         };
 
-        this.handleCCNumberInput = function (e) {
+        _this.handleCCNumberInput = function (e) {
             var target = e.currentTarget,
                 targetVal = target.value,
                 charCode = String.fromCharCode(e.which),
-                charCodeLen = (targetVal.replace(/\D/g, '') + charCode).length,
-                card = _CreditCardResolver2['default'].resolve(targetVal + charCode),
+                charCodeLen = (targetVal.replace(/\D/g, "") + charCode).length,
+                card = _CreditCardResolver2.default.resolve(targetVal + charCode),
                 selectionLength = target.selectionEnd - target.selectionStart,
                 maxLength = 16;
 
@@ -72,18 +72,18 @@ var CreditCardField = (function (_FormsyField) {
                 return;
             }
 
-            if ((card && (maxLength = card.length), !/^\d+$/.test(charCode) || charCodeLen > maxLength)) {
+            if (card && (maxLength = card.length), !/^\d+$/.test(charCode) || charCodeLen > maxLength) {
                 return void e.preventDefault();
             }
 
-            var cardTest = card && 'amex' === card.type ? /^(\d{4}|\d{4}\s\d{6})$/ : /(?:^|\s)(\d{4})$/;
+            var cardTest = card && "amex" === card.type ? /^(\d{4}|\d{4}\s\d{6})$/ : /(?:^|\s)(\d{4})$/;
 
-            return cardTest.test(targetVal) ? (e.preventDefault(), void (target.value = targetVal + ' ' + charCode)) : void 0;
+            return cardTest.test(targetVal) ? (e.preventDefault(), void (target.value = targetVal + " " + charCode)) : void 0;
         };
 
-        this.state = { cardNumber: '', cardType: '' };
+        _this.state = { cardNumber: '', cardType: '' };
 
-        this.styles = {
+        _this.styles = {
             'discover': {
                 background: 'white url(images/credit-cards/discover.png) no-repeat right center',
                 backgroundSize: '30px'
@@ -104,9 +104,8 @@ var CreditCardField = (function (_FormsyField) {
                 backgroundColor: 'white'
             }
         };
+        return _this;
     }
-
-    _inherits(CreditCardField, _FormsyField);
 
     _createClass(CreditCardField, [{
         key: 'componentDidMount',
@@ -134,10 +133,10 @@ var CreditCardField = (function (_FormsyField) {
                     autoComplete: 'off',
                     value: this.state.cardNumber,
                     autoFocus: 'true',
-                    onChange: function (e) {
+                    onChange: function onChange(e) {
                         return _this2.setCardNumber(e);
                     },
-                    onKeyPress: function (e) {
+                    onKeyPress: function onKeyPress(e) {
                         return _this2.handleCCNumberInput(e);
                     },
                     placeholder: 'Enter card number',
@@ -153,6 +152,6 @@ var CreditCardField = (function (_FormsyField) {
     }]);
 
     return CreditCardField;
-})(_FormsyField3['default']);
+}(_FormsyField3.default);
 
 module.exports = CreditCardField;

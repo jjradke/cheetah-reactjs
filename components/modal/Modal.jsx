@@ -39,6 +39,7 @@ class ModalDialog extends React.Component {
     };
 
     open = () => {
+        var keys = {37: 1, 38: 1, 39: 1, 40: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 1};
         if (this.props.onOpen) {
             this.props.onOpen();
         }

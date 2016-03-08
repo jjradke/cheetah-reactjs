@@ -1,10 +1,6 @@
 'use strict';
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+var _dec, _class;
 
 var _react = require('react');
 
@@ -18,17 +14,29 @@ var _reactMixin = require('react-mixin');
 
 var _reactMixin2 = _interopRequireDefault(_reactMixin);
 
-var FormsyField = (function (_React$Component) {
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var FormsyField = (_dec = _reactMixin2.default.decorate(_formsyReact2.default.Mixin), _dec(_class = function (_React$Component) {
+    _inherits(FormsyField, _React$Component);
+
     function FormsyField() {
-        var _this = this;
+        var _Object$getPrototypeO;
 
-        _classCallCheck(this, _FormsyField);
+        var _temp, _this, _ret;
 
-        if (_React$Component != null) {
-            _React$Component.apply(this, arguments);
+        _classCallCheck(this, FormsyField);
+
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
         }
 
-        this.errorMessage = function () {
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(FormsyField)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.errorMessage = function () {
             var errorMessage = '';
 
             // only will have an error message displayed if not valid
@@ -43,9 +51,7 @@ var FormsyField = (function (_React$Component) {
             }
 
             return errorMessage;
-        };
-
-        this.containerClassName = function () {
+        }, _this.containerClassName = function () {
             var className = 'form-control-container';
 
             if (_this.showRequired() && !_this.isPristine()) {
@@ -55,9 +61,7 @@ var FormsyField = (function (_React$Component) {
             }
 
             return className;
-        };
-
-        this.fieldClassName = function () {
+        }, _this.fieldClassName = function () {
             var className = 'form-control';
 
             if (_this.showRequired() && !_this.isPristine()) {
@@ -67,14 +71,10 @@ var FormsyField = (function (_React$Component) {
             }
 
             return className;
-        };
+        }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
-    _inherits(FormsyField, _React$Component);
-
-    var _FormsyField = FormsyField;
-    FormsyField = _reactMixin2['default'].decorate(_formsyReact2['default'].Mixin)(FormsyField) || FormsyField;
     return FormsyField;
-})(_react2['default'].Component);
+}(_react2.default.Component)) || _class);
 
 module.exports = FormsyField;
