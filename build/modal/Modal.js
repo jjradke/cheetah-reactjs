@@ -36,6 +36,7 @@ var ModalDialog = function (_React$Component) {
         };
 
         _this.open = function () {
+            var keys = { 37: 1, 38: 1, 39: 1, 40: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 1 };
             if (_this.props.onOpen) {
                 _this.props.onOpen();
             }
