@@ -83,12 +83,14 @@ var RestServiceApi = function () {
         params = id;
         id = null;
       }
+      console.log("update.params=" + JSON.stringify(params));
       var url = this.baseUrl + resourceName + (id != null ? '/' + encodeURIComponent(id) : '');
       return _rx2.default.Observable.create(function (observer) {
         _jquery2.default.ajax({
           url: url,
           type: 'PUT',
-          data: params,
+          data: JSON.stringify(params),
+          contentType: 'application/json',
           success: function success(result) {
             observer.onNext(result);
             observer.onCompleted();
@@ -104,11 +106,18 @@ var RestServiceApi = function () {
     value: function create(resourceName, params) {
       var url = this.baseUrl + resourceName;
       return _rx2.default.Observable.create(function (observer) {
-        _jquery2.default.post(url, params, function (result) {
-          observer.onNext(result);
-          observer.onCompleted();
-        }).fail(function (error) {
-          observer.onError(error);
+        _jquery2.default.ajax({
+          url: url,
+          type: 'POST',
+          data: JSON.stringify(params),
+          contentType: 'application/json',
+          success: function success(result) {
+            observer.onNext(result);
+            observer.onCompleted();
+          },
+          error: function error(_error3) {
+            observer.onError(_error3);
+          }
         });
       });
     }
