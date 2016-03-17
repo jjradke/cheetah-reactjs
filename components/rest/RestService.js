@@ -64,7 +64,8 @@ class RestServiceApi {
       $.ajax({
         url: url,
         type: 'PUT',
-        data: params,
+        data: JSON.stringify(params),
+        contentType: 'application/json',
         success: (result) => {
           observer.onNext(result);
           observer.onCompleted();
@@ -79,12 +80,18 @@ class RestServiceApi {
   create(resourceName, params) {
     var url = this.baseUrl + resourceName;
     return Rx.Observable.create((observer) => {
-      $.post(url, params, (result) => {
-        observer.onNext(result);
-        observer.onCompleted();
-      })
-      .fail((error) => {
-        observer.onError(error);
+      $.ajax({
+        url: url,
+        type: 'POST',
+        data: JSON.stringify(params),
+        contentType: 'application/json',
+        success: (result) => {
+          observer.onNext(result);
+          observer.onCompleted();
+        },
+        error: (error) => {
+          observer.onError(error);
+        }
       });
     });
   }
