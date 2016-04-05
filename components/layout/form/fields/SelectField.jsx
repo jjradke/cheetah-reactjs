@@ -6,6 +6,11 @@ import FormsyField from './FormsyField';
 
 class SelectField extends FormsyField {
 
+    static defaultProps = {
+        labelKey: "Description",
+        valueKey: "Id"
+    }
+
     constructor(props) {
         super(props);
 
@@ -19,36 +24,31 @@ class SelectField extends FormsyField {
             }
         }
 
-        this.state = { value: props.value };
-
         this.handleChange = this.handleChange.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.forceUpdate();
+    componentWillReceiveProps(props) {
+        if (typeof props.value === 'string' && this.props.multiple) {
+            this.setState({value: [props.value]});
+        } else {
+            this.setState({value: props.value});
+        }
     }
 
     handleChange = (value, object) => {
+        let newValue = this.state.value;
         if (this.props.multiple) {
-            this.state.value = _.pluck(object, 'value');
+            newValue = _.pluck(object, 'value');
         } else {
-            this.state.value = value;
+            newValue = value[this.props.valueKey] || value;
         }
-        this.setValue(this.state.value);
-        this.props.onChange(this.state.value, {
+        this.setValue(newValue);
+        this.props.onChange(newValue, {
             target: {
                 name: this.props.name
             }
         });
     };
-
-    getLabel(item) {
-        return (this.props.labelKey? item[this.props.labelKey]: item.Description);
-    }
-
-    getValueFromItem(item) {
-        return (this.props.valueKey? item[this.props.valueKey]: item.Id);
-    }
 
     /* Multiselect component we use does not support disabling - this will disable
      the button it renders. May want to switch to a new Multiselect. Will need to
@@ -56,37 +56,20 @@ class SelectField extends FormsyField {
      */
 
     render() {
-        // get latest value from parent on each render
-        this.state.value = this.props.value;
-        var newValues = [];
-        if (this.props.options) {
-            for (var i = 0; i < this.props.options.length; i++) {
-                newValues.push({
-                    value: this.getValueFromItem(this.props.options[i]),
-                    label: this.getLabel(this.props.options[i])
-                });
-            }
-        }
-
-        var className = this.showRequired() ? 'required' : this.showError() ? 'error' : null;
-
-        var errorMessage = this.getErrorMessage();
-
-        return <div className={this.containerClassName}>
-
-            <Select {...this.props}
-                options={newValues}
-                value={this.state.value}
-                onChange={this.handleChange}
-                multi={this.props.multiple}
-                disabled={this.props.disabled}
-                className={this.fieldClassName()}
-            />
-
-            <span className="form-control-message">{this.errorMessage()}</span>
-
-            <div className="clearfix"></div>
-        </div>
+        return (
+            <div>
+                <Select {...this.props}
+                    options={this.props.options}
+                    value={this.state.value}
+                    onChange={this.handleChange}
+                    multi={this.props.multiple}
+                    disabled={this.props.disabled}
+                    labelKey={this.props.labelKey}
+                    valueKey={this.props.valueKey}
+                />
+                <span className="form-control-message">{this.errorMessage()}</span>
+            </div>
+        );
     }
 
 }
