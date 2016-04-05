@@ -1,14 +1,14 @@
-'use strict';
+"use strict";
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _reactSelect = require('react-select');
+var _reactSelect = require("react-select");
 
 var _reactSelect2 = _interopRequireDefault(_reactSelect);
 
-var _FormsyField2 = require('./FormsyField');
+var _FormsyField2 = require("./FormsyField");
 
 var _FormsyField3 = _interopRequireDefault(_FormsyField2);
 
@@ -31,7 +31,7 @@ var SelectField = function (_FormsyField) {
         _this.handleChange = function (value, object) {
             var newValue = _this.state.value;
             if (_this.props.multiple) {
-                newValue = _.pluck(object, 'value');
+                newValue = _.pluck(object, "value");
             } else {
                 newValue = value[_this.props.valueKey] || value;
             }
@@ -43,7 +43,7 @@ var SelectField = function (_FormsyField) {
             });
         };
 
-        if (typeof props.value === 'string' && _this.props.multiple) {
+        if (typeof props.value === "string" && _this.props.multiple) {
             _this.state = {
                 value: [props.value]
             };
@@ -58,16 +58,16 @@ var SelectField = function (_FormsyField) {
     }
 
     _createClass(SelectField, [{
-        key: 'componentWillReceiveProps',
+        key: "componentWillReceiveProps",
         value: function componentWillReceiveProps(props) {
-            if (typeof props.value === 'string' && this.props.multiple) {
+            if (typeof props.value === "string" && this.props.multiple) {
                 this.setState({ value: [props.value] });
             } else {
                 this.setState({ value: props.value });
             }
         }
     }, {
-        key: 'render',
+        key: "render",
 
 
         /* Multiselect component we use does not support disabling - this will disable
@@ -77,9 +77,10 @@ var SelectField = function (_FormsyField) {
 
         value: function render() {
             return React.createElement(
-                'div',
-                null,
+                "div",
+                { className: this.containerClassName() },
                 React.createElement(_reactSelect2.default, _extends({}, this.props, {
+                    className: this.fieldClassName(),
                     options: this.props.options,
                     value: this.state.value,
                     onChange: this.handleChange,
@@ -89,8 +90,8 @@ var SelectField = function (_FormsyField) {
                     valueKey: this.props.valueKey
                 })),
                 React.createElement(
-                    'span',
-                    { className: 'form-control-message' },
+                    "span",
+                    { className: "form-control-message" },
                     this.errorMessage()
                 )
             );
@@ -102,7 +103,9 @@ var SelectField = function (_FormsyField) {
 
 SelectField.defaultProps = {
     labelKey: "Description",
-    valueKey: "Id"
+    valueKey: "Id",
+    validationError: "",
+    validationErrors: {}
 };
 
 

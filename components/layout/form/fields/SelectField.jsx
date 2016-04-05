@@ -1,20 +1,22 @@
-'use strict';
+"use strict";
 
-import Select from 'react-select';
+import Select from "react-select";
 
-import FormsyField from './FormsyField';
+import FormsyField from "./FormsyField";
 
 class SelectField extends FormsyField {
 
     static defaultProps = {
         labelKey: "Description",
-        valueKey: "Id"
+        valueKey: "Id",
+        validationError: "",
+        validationErrors: {}
     }
 
     constructor(props) {
         super(props);
 
-        if (typeof props.value === 'string' && this.props.multiple) {
+        if (typeof props.value === "string" && this.props.multiple) {
             this.state = {
                 value: [props.value]
             }
@@ -28,7 +30,7 @@ class SelectField extends FormsyField {
     }
 
     componentWillReceiveProps(props) {
-        if (typeof props.value === 'string' && this.props.multiple) {
+        if (typeof props.value === "string" && this.props.multiple) {
             this.setState({value: [props.value]});
         } else {
             this.setState({value: props.value});
@@ -38,7 +40,7 @@ class SelectField extends FormsyField {
     handleChange = (value, object) => {
         let newValue = this.state.value;
         if (this.props.multiple) {
-            newValue = _.pluck(object, 'value');
+            newValue = _.pluck(object, "value");
         } else {
             newValue = value[this.props.valueKey] || value;
         }
@@ -57,8 +59,9 @@ class SelectField extends FormsyField {
 
     render() {
         return (
-            <div>
+            <div className={this.containerClassName()}>
                 <Select {...this.props}
+                    className={this.fieldClassName()}
                     options={this.props.options}
                     value={this.state.value}
                     onChange={this.handleChange}
