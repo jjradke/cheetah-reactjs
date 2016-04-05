@@ -29,13 +29,14 @@ var SelectField = function (_FormsyField) {
         var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SelectField).call(this, props));
 
         _this.handleChange = function (value, object) {
+            var newValue = _this.state.value;
             if (_this.props.multiple) {
-                _this.state.value = _.pluck(object, 'value');
+                newValue = _.pluck(object, 'value');
             } else {
-                _this.state.value = value;
+                newValue = value[_this.props.valueKey] || value;
             }
-            _this.setValue(_this.state.value);
-            _this.props.onChange(_this.state.value, {
+            _this.setValue(newValue);
+            _this.props.onChange(newValue, {
                 target: {
                     name: _this.props.name
                 }
@@ -52,74 +53,57 @@ var SelectField = function (_FormsyField) {
             };
         }
 
-        _this.state = { value: props.value };
-
         _this.handleChange = _this.handleChange.bind(_this);
         return _this;
     }
 
     _createClass(SelectField, [{
         key: 'componentWillReceiveProps',
-        value: function componentWillReceiveProps(nextProps) {
-            this.forceUpdate();
+        value: function componentWillReceiveProps(props) {
+            if (typeof props.value === 'string' && this.props.multiple) {
+                this.setState({ value: [props.value] });
+            } else {
+                this.setState({ value: props.value });
+            }
         }
     }, {
-        key: 'getLabel',
-        value: function getLabel(item) {
-            return this.props.labelKey ? item[this.props.labelKey] : item.Description;
-        }
-    }, {
-        key: 'getValueFromItem',
-        value: function getValueFromItem(item) {
-            return this.props.valueKey ? item[this.props.valueKey] : item.Id;
-        }
+        key: 'render',
+
 
         /* Multiselect component we use does not support disabling - this will disable
          the button it renders. May want to switch to a new Multiselect. Will need to
          test in Ecommerce Web Admin if so aswell.
          */
 
-    }, {
-        key: 'render',
         value: function render() {
-            // get latest value from parent on each render
-            this.state.value = this.props.value;
-            var newValues = [];
-            if (this.props.options) {
-                for (var i = 0; i < this.props.options.length; i++) {
-                    newValues.push({
-                        value: this.getValueFromItem(this.props.options[i]),
-                        label: this.getLabel(this.props.options[i])
-                    });
-                }
-            }
-
-            var className = this.showRequired() ? 'required' : this.showError() ? 'error' : null;
-
-            var errorMessage = this.getErrorMessage();
-
             return React.createElement(
                 'div',
-                { className: this.containerClassName },
+                null,
                 React.createElement(_reactSelect2.default, _extends({}, this.props, {
-                    options: newValues,
+                    options: this.props.options,
                     value: this.state.value,
                     onChange: this.handleChange,
                     multi: this.props.multiple,
                     disabled: this.props.disabled,
-                    className: this.fieldClassName()
+                    labelKey: this.props.labelKey,
+                    valueKey: this.props.valueKey
                 })),
                 React.createElement(
                     'span',
                     { className: 'form-control-message' },
                     this.errorMessage()
-                ),
-                React.createElement('div', { className: 'clearfix' })
+                )
             );
         }
     }]);
 
     return SelectField;
 }(_FormsyField3.default);
+
+SelectField.defaultProps = {
+    labelKey: "Description",
+    valueKey: "Id"
+};
+
 
 module.exports = SelectField;
