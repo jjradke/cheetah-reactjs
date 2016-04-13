@@ -1,5 +1,3 @@
-import Rx from 'rx';
-
 class StripeUtilsApi {
     constructor() {
 
@@ -23,13 +21,12 @@ class StripeUtilsApi {
             }
         };
 
-        return Rx.Observable.create((observer) => {
+        return new Promise(function(resolve, reject){
             Stripe.card.createToken(obj, (status, response) => {
                 if (status === 200) {
-                    observer.onNext(response);
-                    observer.onCompleted();
+                    return resolve(response);
                 } else {
-                    observer.onError(response);
+                    return reject(response);
                 }
             });
         });
