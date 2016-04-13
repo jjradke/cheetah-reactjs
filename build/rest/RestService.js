@@ -83,7 +83,6 @@ var RestServiceApi = function () {
         params = id;
         id = null;
       }
-      console.log("update.params=" + JSON.stringify(params));
       var url = this.baseUrl + resourceName + (id != null ? '/' + encodeURIComponent(id) : '');
       return _rx2.default.Observable.create(function (observer) {
         _jquery2.default.ajax({
