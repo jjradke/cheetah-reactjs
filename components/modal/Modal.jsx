@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Modal } from 'react-bootstrap';
-import classNames from "classnames";
 
 class ModalDialog extends React.Component {
 
@@ -80,8 +79,8 @@ class ModalDialog extends React.Component {
                 bsSize={this.props.size}>
                 <Modal.Body>
                     <div style={this.props.containerStyle}>
-                        <div className="col-xs-12">
-                            <i style={this.styles.closeButton} className={classNames("fa", "fa-times-thin")}
+                        <div className="col-xs-12 no-gutter">
+                            <i style={this.styles.closeButton} className="fa fa-times-thin"
                                onClick={this.close}></i>
                         </div>
 

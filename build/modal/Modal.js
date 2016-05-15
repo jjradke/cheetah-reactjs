@@ -8,10 +8,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactBootstrap = require('react-bootstrap');
 
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -114,8 +110,8 @@ var ModalDialog = function (_React$Component) {
                         { style: this.props.containerStyle },
                         _react2.default.createElement(
                             'div',
-                            { className: 'col-xs-12' },
-                            _react2.default.createElement('i', { style: this.styles.closeButton, className: (0, _classnames2.default)("fa", "fa-times-thin"),
+                            { className: 'col-xs-12 no-gutter' },
+                            _react2.default.createElement('i', { style: this.styles.closeButton, className: 'fa fa-times-thin',
                                 onClick: this.close })
                         ),
                         this.props.children
